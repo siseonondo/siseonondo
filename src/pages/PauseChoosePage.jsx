@@ -14,44 +14,37 @@ const FLOW_STEPS = [
   {
     hanja: '正',
     title: '잠시 멈추기',
-    desc: '잠시 멈춰서 지금 나를 바라봐요',
-    to: 'today',
+    desc: '하던 일을 잠시 멈추고 지금의 상태를 확인합니다. 바로 답을 내리거나 행동하기 전에, 무엇이 나를 움직이고 있는지 볼 수 있는 자리를 만듭니다.',
   },
   {
     hanja: '見',
     title: '지금 상태 보기',
-    desc: '나를 판단하지 않고 있는 그대로 봐요',
-    to: 'emotion',
+    desc: '좋고 나쁨을 판단하기 전에 현재의 감정과 생각, 상황을 그대로 살펴봅니다. 지금 무엇이 힘들고 무엇이 마음에 남아 있는지 알아차리는 단계입니다.',
   },
   {
     hanja: '取',
     title: '내 마음 알아보기',
-    desc: '내 안의 목소리에 가만히 귀 기울여요',
-    to: 'emotion',
+    desc: '겉으로 드러난 감정 아래에 어떤 마음이 있는지 살펴봅니다. 다른 사람의 기대와 내 마음을 구분하고, 지금 내가 무엇을 바라고 있는지 알아봅니다.',
   },
   {
     hanja: '意',
     title: '필요한 것 고르기',
-    desc: '내 마음이 정말 원하는 걸 알아차려요',
-    to: 'emotion',
+    desc: '여러 생각과 마음 가운데 지금 나에게 중요한 것을 선택합니다. 무엇을 더 해야 하는지가 아니라, 지금 무엇이 필요한지를 정하는 단계입니다.',
   },
   {
     hanja: '動',
     title: '오늘 하나 실행하기',
-    desc: '작은 것부터 하나씩 해봐요',
-    to: 'tasks',
+    desc: '선택한 것을 오늘 할 수 있는 작은 행동으로 옮깁니다. 완벽한 계획보다 지금 가능한 한 가지를 시작합니다.',
   },
   {
     hanja: '感',
-    title: '해본 뒤 돌아보기',
-    desc: '몸이 보내는 신호에 귀 기울여요',
-    to: 'records',
+    title: '나의 감각 살피기',
+    desc: '생각은 몸의 움직임에 영향을 주고, 몸의 상태는 다시 생각과 마음에 영향을 줍니다. 호흡, 긴장, 피로, 편안함처럼 지금 느껴지는 감각을 살피며 나의 속도와 상태를 알아차립니다.',
   },
   {
     hanja: '億',
     title: '내가 향하는 방향 보기',
-    desc: '내가 나아가고 싶은 방향을 그려봐요',
-    to: 'records',
+    desc: '하루의 작은 선택들이 어떤 삶으로 이어지고 있는지 바라봅니다. 반복해서 중요하게 여기는 것과 앞으로 지키고 싶은 방향을 확인합니다.',
   },
 ]
 
@@ -65,6 +58,7 @@ const TODAY_CHOICES = [
 
 export default function PauseChoosePage({ onNavigate }) {
   const [checked, setChecked] = useState(() => new Set())
+  const [activeStep, setActiveStep] = useState(0)
 
   const toggle = (i) => {
     setChecked((prev) => {
@@ -74,6 +68,14 @@ export default function PauseChoosePage({ onNavigate }) {
       return next
     })
   }
+
+  const currentStep = FLOW_STEPS[activeStep]
+  const stepTotal = String(FLOW_STEPS.length).padStart(2, '0')
+  const isFirstStep = activeStep === 0
+  const isLastStep = activeStep === FLOW_STEPS.length - 1
+
+  const goPrevStep = () => setActiveStep((i) => Math.max(0, i - 1))
+  const goNextStep = () => setActiveStep((i) => Math.min(FLOW_STEPS.length - 1, i + 1))
 
   return (
     <div className="pause-page">
@@ -115,13 +117,48 @@ export default function PauseChoosePage({ onNavigate }) {
         <p className="pause-lead">멈추고, 바라보고, 내 마음을 알아본 뒤 오늘 할 수 있는 것을 선택합니다.</p>
 
         <div className="pause-flow-grid">
-          {FLOW_STEPS.map((step) => (
-            <div key={step.hanja} className="pause-flow-card" onClick={() => onNavigate(step.to)}>
+          {FLOW_STEPS.map((step, i) => (
+            <div
+              key={step.hanja}
+              className={`pause-flow-card${i === activeStep ? ' selected' : ''}`}
+              onClick={() => setActiveStep(i)}
+            >
               <span className="pause-flow-hanja">{step.hanja}</span>
               <span className="pause-flow-title">{step.title}</span>
-              <span className="pause-flow-desc">{step.desc}</span>
             </div>
           ))}
+        </div>
+
+        <div className="pause-flow-detail">
+          <div className="pause-flow-detail-head">
+            <span className="pause-flow-detail-title">
+              <span className="pause-flow-detail-hanja">{currentStep.hanja}</span> · {currentStep.title}
+            </span>
+            <span className="pause-flow-detail-index">
+              {String(activeStep + 1).padStart(2, '0')} / {stepTotal}
+            </span>
+          </div>
+
+          <p className="pause-flow-detail-desc">{currentStep.desc}</p>
+
+          <div className="pause-flow-detail-nav">
+            <button
+              type="button"
+              className="pause-flow-nav-btn"
+              onClick={goPrevStep}
+              disabled={isFirstStep}
+            >
+              이전 단계
+            </button>
+            <button
+              type="button"
+              className="pause-flow-nav-btn"
+              onClick={goNextStep}
+              disabled={isLastStep}
+            >
+              다음 단계
+            </button>
+          </div>
         </div>
       </div>
 
