@@ -1224,7 +1224,6 @@
 }
 
 .quote-card-body {
-  cursor: pointer;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -1239,14 +1238,64 @@
 .quote-card-meta {
   display: flex;
   align-items: center;
-  gap: 10px;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
-.quote-card-original {
-  font-size: 12.5px;
-  color: var(--faint);
-  padding-top: 4px;
+.quote-card-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.quote-source-toggle {
+  align-self: flex-start;
+  padding: 0;
+  border: none;
+  background: none;
+  appearance: none;
+  font-size: 12px;
+  font-family: inherit;
+  color: var(--muted);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.quote-source-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 10px;
   border-top: 1px solid var(--border-light);
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+.quote-source-detail .label {
+  color: var(--faint);
+  margin-right: 4px;
+}
+
+.quote-empty {
+  padding: 24px 0;
+  text-align: center;
+  font-size: 13.5px;
+  color: var(--faint);
+}
+
+.quote-search-input {
+  padding: 11px 14px;
+  border: 1px solid var(--border-input);
+  border-radius: 12px;
+  background: var(--bg-app);
+  font-size: 13.5px;
+  font-family: inherit;
+  color: var(--ink);
+}
+
+.quote-search-input::placeholder {
+  color: var(--faint);
 }
 
 .quote-save-btn {
@@ -1576,5 +1625,16 @@
 @media (max-width: 720px) {
   .pause-flow-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .need-chip-row.scrollable {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .need-chip-row.scrollable .need-chip {
+    flex-shrink: 0;
   }
 }

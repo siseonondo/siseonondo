@@ -1,9 +1,9 @@
 import { todaySchedule, conditionHistory } from '../data/mockData'
-import { quotes, unverifiedSourceLabel } from '../data/quotesData'
+import { verifiedQuotes, formatSourceLine } from '../data/quotesData'
 
 const CONDITION_UPDATED_AT = '14:20 갱신'
 const TODAY_INDEX = 25
-const todayQuote = quotes[TODAY_INDEX % quotes.length]
+const todayQuote = verifiedQuotes[TODAY_INDEX % verifiedQuotes.length]
 
 const CONDITION_OPTION_LABELS = {
   1: '많이 지침',
@@ -118,13 +118,9 @@ export default function TodayPage({
           <button type="button" className="card card-reset-btn" onClick={onGoQuotes}>
             <span className="section-title">오늘의 문장</span>
             <div className="today-quote-text">
-              {todayQuote.verified ? `"${todayQuote.text}"` : todayQuote.text}
+              {todayQuote.quoteType === 'translation' ? `"${todayQuote.text}"` : todayQuote.text}
             </div>
-            <span className="meta-mono">
-              {todayQuote.verified
-                ? `${todayQuote.author} · ${todayQuote.source}`
-                : unverifiedSourceLabel(todayQuote)}
-            </span>
+            <span className="meta-mono">{formatSourceLine(todayQuote)}</span>
           </button>
 
           <div className="card">
