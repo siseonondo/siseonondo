@@ -11,13 +11,48 @@ const PULL_CHECKLIST = [
 ]
 
 const FLOW_STEPS = [
-  { hanja: '正', title: '잠시 멈추기', to: 'today' },
-  { hanja: '見', title: '지금 상태 보기', to: 'emotion' },
-  { hanja: '取', title: '내 마음 알아보기', to: 'emotion' },
-  { hanja: '意', title: '필요한 것 고르기', to: 'emotion' },
-  { hanja: '動', title: '오늘 하나 실행하기', to: 'tasks' },
-  { hanja: '感', title: '해본 뒤 돌아보기', to: 'records' },
-  { hanja: '億', title: '내가 향하는 방향 보기', to: 'records' },
+  {
+    hanja: '正',
+    title: '잠시 멈추기',
+    desc: '잠시 멈춰서 지금 나를 바라봐요',
+    to: 'today',
+  },
+  {
+    hanja: '見',
+    title: '지금 상태 보기',
+    desc: '나를 판단하지 않고 있는 그대로 봐요',
+    to: 'emotion',
+  },
+  {
+    hanja: '取',
+    title: '내 마음 알아보기',
+    desc: '내 안의 목소리에 가만히 귀 기울여요',
+    to: 'emotion',
+  },
+  {
+    hanja: '意',
+    title: '필요한 것 고르기',
+    desc: '내 마음이 정말 원하는 걸 알아차려요',
+    to: 'emotion',
+  },
+  {
+    hanja: '動',
+    title: '오늘 하나 실행하기',
+    desc: '작은 것부터 하나씩 해봐요',
+    to: 'tasks',
+  },
+  {
+    hanja: '感',
+    title: '해본 뒤 돌아보기',
+    desc: '몸이 보내는 신호에 귀 기울여요',
+    to: 'records',
+  },
+  {
+    hanja: '億',
+    title: '내가 향하는 방향 보기',
+    desc: '내가 나아가고 싶은 방향을 그려봐요',
+    to: 'records',
+  },
 ]
 
 const TODAY_CHOICES = [
@@ -84,6 +119,7 @@ export default function PauseChoosePage({ onNavigate }) {
             <div key={step.hanja} className="pause-flow-card" onClick={() => onNavigate(step.to)}>
               <span className="pause-flow-hanja">{step.hanja}</span>
               <span className="pause-flow-title">{step.title}</span>
+              <span className="pause-flow-desc">{step.desc}</span>
             </div>
           ))}
         </div>
