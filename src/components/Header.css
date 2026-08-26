@@ -1,0 +1,50 @@
+.workspace-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 36px;
+  border-bottom: 1px solid var(--border);
+}
+
+.workspace-header-title {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.workspace-header-date {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--faint);
+}
+
+.workspace-header-page {
+  font-family: var(--font-serif);
+  font-size: 24px;
+}
+
+.workspace-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn {
+  padding: 10px 16px;
+  border-radius: 11px;
+  font-size: 13.5px;
+  white-space: nowrap;
+}
+
+.btn-outline {
+  border: 1px solid var(--border-input);
+  color: var(--muted);
+}
+
+.btn-primary {
+  padding: 10px 18px;
+  background: var(--ink);
+  color: var(--ink-inverse);
+  font-weight: 600;
+}

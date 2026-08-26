@@ -1,0 +1,142 @@
+import { todaySchedule, conditionHistory } from '../data/mockData'
+import { quotes } from '../data/quotesData'
+
+const CONDITION_UPDATED_AT = '14:20 갱신'
+const TODAY_INDEX = 25
+const todayQuote = quotes[TODAY_INDEX % quotes.length]
+
+export default function TodayPage({
+  condition,
+  onSelectCondition,
+  tasks,
+  onToggleTask,
+  emotions,
+  onGoEmotion,
+  onGoQuotes,
+}) {
+  const todayTasks = tasks.filter((t) => t.bucket === 'today')
+  const doneCount = todayTasks.filter((t) => t.done).length
+  const topTasks = todayTasks.slice(0, 3)
+
+  return (
+    <div className="today-grid">
+      <div className="today-left">
+        <div className="card">
+          <div className="card-row-title">
+            <span className="title-serif">지금 컨디션은 어떤가요</span>
+            <span className="meta-mono">{CONDITION_UPDATED_AT}</span>
+          </div>
+          <div className="condition-options">
+            {[1, 2, 3, 4, 5].map((n) => (
+              <div
+                key={n}
+                className={`condition-option${n === condition ? ' selected' : ''}`}
+                onClick={() => onSelectCondition(n)}
+              >
+                {n}
+              </div>
+            ))}
+          </div>
+          <div className="condition-scale-labels">
+            <span>많이 지침</span>
+            <span>가벼움</span>
+          </div>
+        </div>
+
+        <div className="section">
+          <div className="section-header">
+            <span className="section-title">오늘 일정 · {todaySchedule.length}</span>
+            <span className="section-meta">전체보기</span>
+          </div>
+          <div className="schedule-list">
+            {todaySchedule.map((s) => (
+              <div className="schedule-row" key={s.id}>
+                <span className={`schedule-time${s.done ? ' muted' : ''}`}>{s.time}</span>
+                <span className={`schedule-title${s.done ? ' done' : ''}`}>{s.title}</span>
+                {s.soon && <span className="badge-soon">곧 시작</span>}
+                {s.place && <span className="schedule-place">{s.place}</span>}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="section">
+          <div className="section-header">
+            <span className="section-title">오늘 꼭 할 일</span>
+            <span className="section-meta">{doneCount} / {todayTasks.length} 완료</span>
+          </div>
+          <div className="task-list">
+            {topTasks.map((t) => (
+              <div
+                className={`task-row${t.done ? ' done' : ''}`}
+                key={t.id}
+                onClick={() => onToggleTask(t.id)}
+              >
+                <span className={`checkbox${t.done ? ' checked' : ''}`}>{t.done && '✓'}</span>
+                <span className={`task-title${t.done ? ' done' : ''}`}>{t.title}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="today-right">
+        <div className="card card-selfcare">
+          <span className="meta-mono-green">나를 위한 일</span>
+          <span className="title-serif-green">해 지기 전에 20분 산책하기</span>
+          <span className="sub-green">오늘 하나면 충분해요</span>
+        </div>
+
+        <div className="cta-card" onClick={onGoEmotion}>
+          <div>
+            <div className="cta-title">지금 기분 기록하기</div>
+            <div className="cta-sub">오늘 {emotions.length}번 기록했어요</div>
+          </div>
+          <span className="cta-arrow">→</span>
+        </div>
+
+        <div className="card" onClick={onGoQuotes} style={{ cursor: 'pointer' }}>
+          <span className="section-title">오늘의 문장</span>
+          <div className="today-quote-text">"{todayQuote.text}"</div>
+          <span className="meta-mono">
+            {todayQuote.author} · {todayQuote.source}
+          </span>
+        </div>
+
+        <div className="card">
+          <div className="card-row-title">
+            <span className="section-title">최근 기록</span>
+            <span className="section-meta">{emotions.length}개</span>
+          </div>
+          <div className="emotion-mini-list">
+            {emotions.map((e) => (
+              <div className="emotion-mini-row" key={e.id}>
+                <span className={`chip ${e.color}`}>{e.tag}</span>
+                <span className="emotion-mini-text">{e.situation}</span>
+                <span className="emotion-mini-time">{e.time}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="card">
+          <span className="section-title">최근 7일 컨디션</span>
+          <div className="bar-chart">
+            {conditionHistory.map((d) => (
+              <div
+                key={d.day}
+                className={`bar${d.active ? ' active' : ''}`}
+                style={{ height: `${(d.level / 5) * 100}%` }}
+              />
+            ))}
+          </div>
+          <div className="bar-chart-labels">
+            {conditionHistory.map((d) => (
+              <span key={d.day}>{d.day}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
