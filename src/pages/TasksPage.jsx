@@ -4,12 +4,14 @@ function TaskCard({ task, onToggleTask, onSetDate, onNoteChange }) {
   return (
     <div className="task-detail-card">
       <div className="task-detail-top">
-        <span
+        <button
+          type="button"
           className={`checkbox${task.done ? ' checked' : ''}`}
           onClick={() => onToggleTask(task.id)}
+          aria-label={task.done ? '완료 취소' : '완료로 표시'}
         >
           {task.done && '✓'}
-        </span>
+        </button>
         <span className={`task-title${task.done ? ' done' : ''}`}>{task.title}</span>
       </div>
       <div className="task-detail-meta-row">
@@ -66,9 +68,14 @@ export default function TasksPage({ tasks, onToggleTask, onSetDate, onNoteChange
           </div>
           {done.map((t) => (
             <div className="task-done-card" key={t.id}>
-              <span className="checkbox checked" onClick={() => onToggleTask(t.id)}>
+              <button
+                type="button"
+                className="checkbox checked"
+                onClick={() => onToggleTask(t.id)}
+                aria-label="완료 취소"
+              >
                 ✓
-              </span>
+              </button>
               <span className="task-title done">{t.title}</span>
             </div>
           ))}

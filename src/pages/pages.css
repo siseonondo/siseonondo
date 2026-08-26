@@ -1,4 +1,12 @@
 /* shared */
+.card-reset-btn {
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  appearance: none;
+}
+
 .card {
   background: var(--card-bg);
   border-radius: 20px;
@@ -110,6 +118,8 @@
   cursor: pointer;
   background: transparent;
   color: var(--faint);
+  appearance: none;
+  font-family: inherit;
 }
 
 .condition-option-num {
@@ -188,9 +198,15 @@
   display: flex;
   align-items: center;
   gap: 14px;
+  width: 100%;
   padding: 16px 18px;
   background: var(--card-bg);
+  border: none;
   border-radius: 14px;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  appearance: none;
   cursor: pointer;
 }
 
@@ -201,8 +217,11 @@
 .checkbox {
   width: 18px;
   height: 18px;
+  padding: 0;
   border-radius: 6px;
   border: 1.5px solid var(--dash-border);
+  background: transparent;
+  appearance: none;
   flex-shrink: 0;
 }
 
@@ -262,6 +281,7 @@
 }
 
 .cta-card {
+  width: 100%;
   background: var(--card-bg);
   padding: 24px;
   border-radius: 20px;
@@ -271,6 +291,10 @@
   align-items: center;
   justify-content: space-between;
   gap: 16px;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  appearance: none;
   cursor: pointer;
 }
 
@@ -437,14 +461,17 @@
 }
 
 .emotion-option {
+  width: 100%;
   padding: 13px 0;
   border-radius: 12px;
   border: 1px solid var(--border-input);
   text-align: center;
   font-size: 13.5px;
+  font-family: inherit;
   color: var(--muted);
   cursor: pointer;
   background: transparent;
+  appearance: none;
 }
 
 .emotion-option.selected {
@@ -486,9 +513,11 @@
   border-radius: 999px;
   border: 1px solid var(--border-input);
   font-size: 13.5px;
+  font-family: inherit;
   color: var(--muted);
   cursor: pointer;
   background: transparent;
+  appearance: none;
 }
 
 .need-chip.selected {
@@ -502,12 +531,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
   padding: 15px;
+  border: none;
   border-radius: 13px;
   background: var(--ink);
   color: var(--ink-inverse);
   font-size: 15px;
   font-weight: 600;
+  font-family: inherit;
+  appearance: none;
 }
 
 /* calendar page */
@@ -533,13 +566,17 @@
 .icon-btn {
   width: 30px;
   height: 30px;
+  padding: 0;
   border-radius: 50%;
   border: 1px solid var(--border-input);
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 13px;
+  font-family: inherit;
   color: var(--fainter);
+  appearance: none;
   cursor: pointer;
 }
 
@@ -552,9 +589,13 @@
 
 .view-toggle-item {
   padding: 8px 20px;
+  border: none;
+  background: transparent;
   font-size: 13px;
+  font-family: inherit;
   color: var(--fainter);
   border-radius: 8px;
+  appearance: none;
   cursor: pointer;
 }
 
@@ -669,12 +710,23 @@
 .month-cell {
   min-height: 88px;
   padding: 10px;
+  width: 100%;
+  border: none;
   border-left: 1px solid var(--border-light);
   border-bottom: 1px solid var(--border-light);
+  background: transparent;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 6px;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  appearance: none;
+}
+
+.month-cell:not(.outside) {
+  cursor: pointer;
 }
 
 .month-cell:nth-child(7n + 1) {

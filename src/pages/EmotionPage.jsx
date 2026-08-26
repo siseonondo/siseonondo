@@ -54,15 +54,18 @@ export default function EmotionPage({ emotions, onSave, canSave }) {
           </div>
           <div className="emotion-option-grid">
             {emotionOptions.map((opt) => (
-              <div
+              <button
                 key={opt}
+                type="button"
                 className={`emotion-option${selectedEmotion === opt ? ' selected' : ''}`}
                 onClick={() => setSelectedEmotion(opt)}
               >
                 {opt}
-              </div>
+              </button>
             ))}
-            <div className="emotion-option add">＋</div>
+            <button type="button" className="emotion-option add">
+              ＋
+            </button>
           </div>
         </div>
 
@@ -73,13 +76,14 @@ export default function EmotionPage({ emotions, onSave, canSave }) {
           </div>
           <div className="condition-options">
             {[1, 2, 3, 4, 5].map((n) => (
-              <div
+              <button
                 key={n}
+                type="button"
                 className={`condition-option${n === intensity ? ' selected' : ''}`}
                 onClick={() => setIntensity(n)}
               >
                 {n}
-              </div>
+              </button>
             ))}
           </div>
         </div>
@@ -91,13 +95,14 @@ export default function EmotionPage({ emotions, onSave, canSave }) {
           </div>
           <div className="need-chip-row">
             {areaOptions.map((area) => (
-              <span
+              <button
                 key={area}
+                type="button"
                 className={`need-chip${selectedArea === area ? ' selected' : ''}`}
                 onClick={() => setSelectedArea(area)}
               >
                 {area}
-              </span>
+              </button>
             ))}
           </div>
         </div>
@@ -109,13 +114,14 @@ export default function EmotionPage({ emotions, onSave, canSave }) {
           </div>
           <div className="need-chip-row">
             {needOptions.map((need) => (
-              <span
+              <button
                 key={need}
+                type="button"
                 className={`need-chip${selectedNeed === need ? ' selected' : ''}`}
                 onClick={() => setSelectedNeed(need)}
               >
                 {need}
-              </span>
+              </button>
             ))}
           </div>
         </div>
@@ -134,13 +140,15 @@ export default function EmotionPage({ emotions, onSave, canSave }) {
           />
         </div>
 
-        <div
+        <button
+          type="button"
           className="form-submit"
           onClick={handleSave}
+          disabled={!canSave}
           style={!canSave ? { opacity: 0.5, cursor: 'default' } : undefined}
         >
           {canSave ? (saving ? '저장 중…' : '저장하기') : '로그인하면 저장돼요'}
-        </div>
+        </button>
       </div>
     </div>
   )

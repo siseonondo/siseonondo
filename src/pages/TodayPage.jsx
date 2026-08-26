@@ -38,14 +38,15 @@ export default function TodayPage({
             </div>
             <div className="condition-options">
               {[1, 2, 3, 4, 5].map((n) => (
-                <div
+                <button
                   key={n}
+                  type="button"
                   className={`condition-option${n === condition ? ' selected' : ''}`}
                   onClick={() => onSelectCondition(n)}
                 >
                   <span className="condition-option-num">{n}</span>
                   <span className="condition-option-label">{CONDITION_OPTION_LABELS[n]}</span>
-                </div>
+                </button>
               ))}
             </div>
           </div>
@@ -74,14 +75,15 @@ export default function TodayPage({
             </div>
             <div className="task-list">
               {topTasks.map((t) => (
-                <div
+                <button
+                  type="button"
                   className={`task-row${t.done ? ' done' : ''}`}
                   key={t.id}
                   onClick={() => onToggleTask(t.id)}
                 >
                   <span className={`checkbox${t.done ? ' checked' : ''}`}>{t.done && '✓'}</span>
                   <span className={`task-title${t.done ? ' done' : ''}`}>{t.title}</span>
-                </div>
+                </button>
               ))}
             </div>
           </div>
@@ -94,13 +96,13 @@ export default function TodayPage({
             <span className="sub-green">오늘 하나면 충분해요</span>
           </div>
 
-          <div className="cta-card" onClick={onGoEmotion}>
+          <button type="button" className="cta-card" onClick={onGoEmotion}>
             <div>
               <div className="cta-title">지금 기분 기록하기</div>
               <div className="cta-sub">오늘 {emotions.length}번 기록했어요</div>
             </div>
             <span className="cta-arrow">→</span>
-          </div>
+          </button>
 
           <div className="card pause-intro-card">
             <span className="section-title">지금 나를 끌고 가는 힘</span>
@@ -112,13 +114,13 @@ export default function TodayPage({
             </button>
           </div>
 
-          <div className="card" onClick={onGoQuotes} style={{ cursor: 'pointer' }}>
+          <button type="button" className="card card-reset-btn" onClick={onGoQuotes}>
             <span className="section-title">오늘의 문장</span>
             <div className="today-quote-text">"{todayQuote.text}"</div>
             <span className="meta-mono">
               {todayQuote.author} · {todayQuote.source}
             </span>
-          </div>
+          </button>
 
           <div className="card">
             <div className="card-row-title">

@@ -143,23 +143,27 @@ function MonthView({ cursor, onSelectDay }) {
         ))}
       </div>
       <div className="month-body-grid">
-        {monthGrid.map((cell, i) => (
-          <div
-            key={i}
-            className={`month-cell${cell.outside ? ' outside' : ''}${cell.today ? ' today' : ''}`}
-            onClick={() => !cell.outside && onSelectDay(cell.day)}
-            style={!cell.outside ? { cursor: 'pointer' } : undefined}
-          >
-            <span className="month-cell-day">{cell.day}</span>
-            {!cell.outside && (
+        {monthGrid.map((cell, i) =>
+          cell.outside ? (
+            <div key={i} className="month-cell outside">
+              <span className="month-cell-day">{cell.day}</span>
+            </div>
+          ) : (
+            <button
+              key={i}
+              type="button"
+              className={`month-cell${cell.today ? ' today' : ''}`}
+              onClick={() => onSelectDay(cell.day)}
+            >
+              <span className="month-cell-day">{cell.day}</span>
               <div className="month-cell-dots">
                 {cell.hasEvent && <span className="mini-cal-dot" />}
                 {cell.hasMood && <span className="mini-cal-dot mood" />}
                 {cell.taskDone && <span className="mini-cal-dot done" />}
               </div>
-            )}
-          </div>
-        ))}
+            </button>
+          )
+        )}
       </div>
     </div>
   )
@@ -171,9 +175,9 @@ function DayDetailModal({ day, onClose }) {
       <div className="day-detail-modal" onClick={(e) => e.stopPropagation()}>
         <div className="day-detail-head">
           <span className="title-serif">8월 {day}일</span>
-          <span className="icon-btn" onClick={onClose}>
+          <button type="button" className="icon-btn" onClick={onClose} aria-label="닫기">
             ✕
-          </span>
+          </button>
         </div>
 
         <div className="day-stat-row">
@@ -256,23 +260,24 @@ export default function CalendarPage() {
         <div className="calendar-toolbar-left">
           <span className="title-serif">{formatTitle(view, cursor)}</span>
           <div className="icon-btn-row">
-            <span className="icon-btn" onClick={() => step(-1)}>
+            <button type="button" className="icon-btn" onClick={() => step(-1)} aria-label="이전">
               ‹
-            </span>
-            <span className="icon-btn" onClick={() => step(1)}>
+            </button>
+            <button type="button" className="icon-btn" onClick={() => step(1)} aria-label="다음">
               ›
-            </span>
+            </button>
           </div>
         </div>
         <div className="view-toggle">
           {VIEWS.map((v) => (
-            <span
+            <button
               key={v.key}
+              type="button"
               className={`view-toggle-item${view === v.key ? ' active' : ''}`}
               onClick={() => setView(v.key)}
             >
               {v.label}
-            </span>
+            </button>
           ))}
         </div>
       </div>
