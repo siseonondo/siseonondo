@@ -19,7 +19,10 @@ export default function Sidebar({ activeTab, onSelectTab, condition }) {
         style={{ cursor: 'pointer' }}
       >
         <img src={logo} alt="생글로리" className="sidebar-logo" />
-        <span className="sidebar-title">자기경영</span>
+        <div className="sidebar-brand-text">
+          <span className="sidebar-title">시선온도</span>
+          <span className="sidebar-subtitle">시선의 길을 열다</span>
+        </div>
       </div>
 
       <nav className="sidebar-nav">
