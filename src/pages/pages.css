@@ -1251,7 +1251,12 @@
 
 .quote-save-btn {
   align-self: flex-start;
+  padding: 0;
+  border: none;
+  background: none;
+  appearance: none;
   font-size: 12px;
+  font-family: inherit;
   color: var(--faint);
   cursor: pointer;
 }

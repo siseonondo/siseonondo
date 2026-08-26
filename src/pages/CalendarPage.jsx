@@ -275,6 +275,7 @@ export default function CalendarPage() {
               type="button"
               className={`view-toggle-item${view === v.key ? ' active' : ''}`}
               onClick={() => setView(v.key)}
+              aria-pressed={view === v.key}
             >
               {v.label}
             </button>

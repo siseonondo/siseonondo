@@ -93,6 +93,7 @@ export default function PauseChoosePage({ onNavigate }) {
               type="button"
               className={`pause-checklist-item${checked.has(i) ? ' selected' : ''}`}
               onClick={() => toggle(i)}
+              aria-pressed={checked.has(i)}
             >
               <span className={`checkbox${checked.has(i) ? ' checked' : ''}`}>
                 {checked.has(i) && '✓'}
@@ -125,6 +126,7 @@ export default function PauseChoosePage({ onNavigate }) {
               type="button"
               className={`pause-flow-card${i === activeStep ? ' selected' : ''}`}
               onClick={() => setActiveStep(i)}
+              aria-pressed={i === activeStep}
             >
               <span className="pause-flow-hanja">{step.hanja}</span>
               <span className="pause-flow-title">{step.title}</span>

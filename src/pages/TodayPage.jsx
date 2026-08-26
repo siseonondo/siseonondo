@@ -1,5 +1,5 @@
 import { todaySchedule, conditionHistory } from '../data/mockData'
-import { quotes } from '../data/quotesData'
+import { quotes, unverifiedSourceLabel } from '../data/quotesData'
 
 const CONDITION_UPDATED_AT = '14:20 갱신'
 const TODAY_INDEX = 25
@@ -43,6 +43,7 @@ export default function TodayPage({
                   type="button"
                   className={`condition-option${n === condition ? ' selected' : ''}`}
                   onClick={() => onSelectCondition(n)}
+                  aria-pressed={n === condition}
                 >
                   <span className="condition-option-num">{n}</span>
                   <span className="condition-option-label">{CONDITION_OPTION_LABELS[n]}</span>
@@ -116,9 +117,13 @@ export default function TodayPage({
 
           <button type="button" className="card card-reset-btn" onClick={onGoQuotes}>
             <span className="section-title">오늘의 문장</span>
-            <div className="today-quote-text">"{todayQuote.text}"</div>
+            <div className="today-quote-text">
+              {todayQuote.verified ? `"${todayQuote.text}"` : todayQuote.text}
+            </div>
             <span className="meta-mono">
-              {todayQuote.author} · {todayQuote.source}
+              {todayQuote.verified
+                ? `${todayQuote.author} · ${todayQuote.source}`
+                : unverifiedSourceLabel(todayQuote)}
             </span>
           </button>
 

@@ -46,8 +46,10 @@
 }
 
 .workspace-header-page {
+  margin: 0;
   font-family: var(--font-serif);
   font-size: 24px;
+  font-weight: 400;
 }
 
 .workspace-header-actions {

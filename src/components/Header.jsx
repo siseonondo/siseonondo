@@ -30,7 +30,7 @@ export default function Header({ onMenuToggle }) {
         </button>
         <div className="workspace-header-title">
           <span className="workspace-header-date">{todayLabel}</span>
-          <span className="workspace-header-page">{currentRoute?.label}</span>
+          <h1 className="workspace-header-page">{currentRoute?.label}</h1>
         </div>
       </div>
       <div className="workspace-header-actions">

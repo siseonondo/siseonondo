@@ -1,4 +1,22 @@
-export const APP_TODAY = new Date(2026, 7, 25)
+import { getTodaySeoulDate } from '../utils/date.js'
+
+export const APP_TODAY = getTodaySeoulDate()
+
+function toISODate(d) {
+  const y = d.getFullYear()
+  const m = String(d.getMonth() + 1).padStart(2, '0')
+  const day = String(d.getDate()).padStart(2, '0')
+  return `${y}-${m}-${day}`
+}
+
+const TODAY_ISO = toISODate(APP_TODAY)
+const TOMORROW_ISO = toISODate(
+  (() => {
+    const d = new Date(APP_TODAY)
+    d.setDate(d.getDate() + 1)
+    return d
+  })()
+)
 
 function startOfWeek(date) {
   const d = new Date(date)
@@ -40,11 +58,11 @@ export function formatDateLabel(dateStr) {
 }
 
 export const initialTasks = [
-  { id: 't1', title: '기획서 3장 마무리', date: '2026-08-25', note: '', done: false },
-  { id: 't2', title: '병원 예약 전화', date: '2026-08-25', note: '', done: false },
-  { id: 't3', title: '계약서 검토 회신', date: '2026-08-26', note: '', done: false },
+  { id: 't1', title: '기획서 3장 마무리', date: TODAY_ISO, note: '', done: false },
+  { id: 't2', title: '병원 예약 전화', date: TODAY_ISO, note: '', done: false },
+  { id: 't3', title: '계약서 검토 회신', date: TOMORROW_ISO, note: '', done: false },
   { id: 't4', title: '이사 견적 알아보기', date: null, note: '', done: false },
-  { id: 't5', title: '장보기 목록 정리', date: '2026-08-25', note: '', done: true },
+  { id: 't5', title: '장보기 목록 정리', date: TODAY_ISO, note: '', done: true },
 ].map((t) => ({ ...t, bucket: bucketForDate(t.date), dateLabel: formatDateLabel(t.date) }))
 
 export const TASK_BUCKETS = [
@@ -108,7 +126,7 @@ export const dayRecord = {
   ],
   selfcare: { label: '산책 · 완료' },
   emotions: todayEmotions,
-  tasks: initialTasks.filter((t) => t.dateLabel === '오늘 · 8월 25일'),
+  tasks: initialTasks.filter((t) => t.bucket === 'today'),
   schedule: todaySchedule,
 }
 

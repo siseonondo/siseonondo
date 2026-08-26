@@ -59,6 +59,7 @@ export default function EmotionPage({ emotions, onSave, canSave }) {
                 type="button"
                 className={`emotion-option${selectedEmotion === opt ? ' selected' : ''}`}
                 onClick={() => setSelectedEmotion(opt)}
+                aria-pressed={selectedEmotion === opt}
               >
                 {opt}
               </button>
@@ -81,6 +82,7 @@ export default function EmotionPage({ emotions, onSave, canSave }) {
                 type="button"
                 className={`condition-option${n === intensity ? ' selected' : ''}`}
                 onClick={() => setIntensity(n)}
+                aria-pressed={n === intensity}
               >
                 {n}
               </button>
@@ -100,6 +102,7 @@ export default function EmotionPage({ emotions, onSave, canSave }) {
                 type="button"
                 className={`need-chip${selectedArea === area ? ' selected' : ''}`}
                 onClick={() => setSelectedArea(area)}
+                aria-pressed={selectedArea === area}
               >
                 {area}
               </button>
@@ -119,6 +122,7 @@ export default function EmotionPage({ emotions, onSave, canSave }) {
                 type="button"
                 className={`need-chip${selectedNeed === need ? ' selected' : ''}`}
                 onClick={() => setSelectedNeed(need)}
+                aria-pressed={selectedNeed === need}
               >
                 {need}
               </button>

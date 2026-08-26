@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { quotes, quoteCategories } from '../data/quotesData'
+import { quotes, quoteCategories, unverifiedSourceLabel } from '../data/quotesData'
 
 const TODAY_INDEX = 25
 const todaysQuotes = [quotes[TODAY_INDEX % quotes.length], quotes[(TODAY_INDEX + 1) % quotes.length]]
@@ -10,19 +10,23 @@ function QuoteCard({ quote, isSaved, onToggleSave, note, onNoteChange }) {
   return (
     <div className="quote-card">
       <div className="quote-card-body" onClick={() => setExpanded((v) => !v)}>
-        <div className="quote-card-text">"{quote.text}"</div>
+        <div className="quote-card-text">{quote.verified ? `"${quote.text}"` : quote.text}</div>
         <div className="quote-card-meta">
-          <span className="meta-mono">{quote.author} · {quote.source}</span>
+          <span className="meta-mono">
+            {quote.verified ? `${quote.author} · ${quote.source}` : unverifiedSourceLabel(quote)}
+          </span>
           <span className={`chip ${quote.category === '불안' ? 'blue' : 'green'}`}>{quote.category}</span>
         </div>
         {expanded && quote.original && <div className="quote-card-original">원문 · {quote.original}</div>}
       </div>
-      <span
+      <button
+        type="button"
         className={`quote-save-btn${isSaved ? ' saved' : ''}`}
         onClick={() => onToggleSave(quote.id)}
+        aria-pressed={isSaved}
       >
         {isSaved ? '★ 저장됨' : '☆ 저장'}
-      </span>
+      </button>
       {isSaved && (
         <input
           className="task-note-input"
@@ -88,13 +92,15 @@ export default function QuotesPage({ saved, onToggleSave, onUpdateNote }) {
         </div>
         <div className="need-chip-row">
           {['전체', ...quoteCategories].map((c) => (
-            <span
+            <button
               key={c}
+              type="button"
               className={`need-chip${category === c ? ' selected' : ''}`}
               onClick={() => setCategory(c)}
+              aria-pressed={category === c}
             >
               {c}
-            </span>
+            </button>
           ))}
         </div>
         <div className="quote-list">
