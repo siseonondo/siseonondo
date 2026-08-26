@@ -8,7 +8,7 @@ export default function Sidebar({ condition, open, onClose }) {
     <>
       {open && <div className="sidebar-overlay" onClick={onClose} />}
       <aside className={`sidebar${open ? ' open' : ''}`}>
-        <Link to="/today" className="sidebar-brand" onClick={onClose}>
+        <Link to="/" className="sidebar-brand" onClick={onClose}>
           <img src={logo} alt="생글로리" className="sidebar-logo" />
           <div className="sidebar-brand-text">
             <span className="sidebar-title">시선온도</span>
