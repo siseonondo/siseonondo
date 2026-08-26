@@ -88,8 +88,9 @@ export default function PauseChoosePage({ onNavigate }) {
 
         <div className="pause-checklist">
           {PULL_CHECKLIST.map((text, i) => (
-            <div
+            <button
               key={i}
+              type="button"
               className={`pause-checklist-item${checked.has(i) ? ' selected' : ''}`}
               onClick={() => toggle(i)}
             >
@@ -97,13 +98,14 @@ export default function PauseChoosePage({ onNavigate }) {
                 {checked.has(i) && '✓'}
               </span>
               <span className="pause-checklist-text">{text}</span>
-            </div>
+            </button>
           ))}
         </div>
 
         {checked.size > 0 && (
           <p className="pause-reflection">
-            선택한 개수보다 중요한 것은 지금 나를 끌고 가는 힘을 알아차리는 것입니다.
+            선택한 개수보다 중요한 것은 지금 나를 끌고 가는 힘을 알아차린 것입니다. 마음에 남는 한 가지를
+            조금 더 살펴보세요.
           </p>
         )}
 
@@ -118,14 +120,15 @@ export default function PauseChoosePage({ onNavigate }) {
 
         <div className="pause-flow-grid">
           {FLOW_STEPS.map((step, i) => (
-            <div
+            <button
               key={step.hanja}
+              type="button"
               className={`pause-flow-card${i === activeStep ? ' selected' : ''}`}
               onClick={() => setActiveStep(i)}
             >
               <span className="pause-flow-hanja">{step.hanja}</span>
               <span className="pause-flow-title">{step.title}</span>
-            </div>
+            </button>
           ))}
         </div>
 
@@ -167,9 +170,14 @@ export default function PauseChoosePage({ onNavigate }) {
 
         <div className="pause-choice-grid">
           {TODAY_CHOICES.map((choice) => (
-            <div key={choice.label} className="pause-choice-item" onClick={() => onNavigate(choice.to)}>
+            <button
+              key={choice.label}
+              type="button"
+              className="pause-choice-item"
+              onClick={() => onNavigate(choice.to)}
+            >
               {choice.label}
-            </div>
+            </button>
           ))}
         </div>
       </div>

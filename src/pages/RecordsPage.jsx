@@ -109,7 +109,7 @@ export default function RecordsPage({ emotions = [], tasks = [] }) {
             </div>
           ))}
           <div className="day-stat-card selfcare">
-            <span className="meta-mono">셀프케어</span>
+            <span className="meta-mono">나를 위한 일</span>
             <span className="title-serif" style={{ fontSize: 15 }}>
               {dayRecord.selfcare.label}
             </span>
@@ -125,7 +125,7 @@ export default function RecordsPage({ emotions = [], tasks = [] }) {
               </span>
               <div className="emotion-record-body">{e.situation}</div>
               <div className="emotion-record-need">
-                <span className="label">욕구</span>
+                <span className="label">필요했던 것</span>
                 <span className="value">· {e.need}</span>
               </div>
             </div>
@@ -134,7 +134,7 @@ export default function RecordsPage({ emotions = [], tasks = [] }) {
 
         <div className="day-detail-two-col">
           <div className="day-detail-list">
-            <span className="section-title">태스크</span>
+            <span className="section-title">할 일</span>
             {dayRecord.tasks.map((t) => (
               <div className={`day-detail-row${t.done ? ' done' : ''}`} key={t.id}>
                 <span>{t.done ? '✓' : '○'}</span>

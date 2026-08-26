@@ -7,6 +7,7 @@ import {
   moodDays,
   dayRecord,
 } from '../data/mockData'
+import { getTodaySeoulDate } from '../utils/date.js'
 
 const VIEWS = [
   { key: 'day', label: '일' },
@@ -16,7 +17,7 @@ const VIEWS = [
 
 const WEEKDAYS = ['월', '화', '수', '목', '금', '토', '일']
 const WEEKDAY_NAMES = ['일', '월', '화', '수', '목', '금', '토']
-const TODAY = new Date(2026, 7, 25)
+const TODAY = getTodaySeoulDate()
 
 function sameDate(a, b) {
   return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate()
@@ -200,7 +201,7 @@ function DayDetailModal({ day, onClose }) {
 
         <div className="day-detail-two-col">
           <div className="day-detail-list">
-            <span className="section-title">태스크</span>
+            <span className="section-title">할 일</span>
             {dayRecord.tasks.map((t) => (
               <div className={`day-detail-row${t.done ? ' done' : ''}`} key={t.id}>
                 <span>{t.done ? '✓' : '○'}</span>
@@ -282,7 +283,7 @@ export default function CalendarPage() {
           <span className="mini-cal-dot mood" /> 마음 기록
         </span>
         <span className="calendar-legend-item">
-          <span className="mini-cal-dot done" /> 태스크 완료
+          <span className="mini-cal-dot done" /> 할 일 완료
         </span>
         <span className="calendar-legend-item">
           <span className="mini-cal-dot" /> 일정

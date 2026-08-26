@@ -1,43 +1,32 @@
+import { Link, NavLink } from 'react-router-dom'
 import logo from '../assets/logo.png'
 import { conditionLabels } from '../data/mockData'
+import { ROUTES } from '../routes.js'
 
-const NAV_ITEMS = [
-  { key: 'today', label: '오늘' },
-  { key: 'emotion', label: '마음 기록' },
-  { key: 'calendar', label: '캘린더' },
-  { key: 'tasks', label: '할 일' },
-  { key: 'records', label: '나의 흐름' },
-  { key: 'quotes', label: '문장 보관함' },
-  { key: 'pausechoose', label: '멈춤과 선택' },
-]
-
-export default function Sidebar({ activeTab, onSelectTab, condition, open, onClose }) {
+export default function Sidebar({ condition, open, onClose }) {
   return (
     <>
       {open && <div className="sidebar-overlay" onClick={onClose} />}
       <aside className={`sidebar${open ? ' open' : ''}`}>
-        <div
-          className="sidebar-brand"
-          onClick={() => onSelectTab('today')}
-          style={{ cursor: 'pointer' }}
-        >
+        <Link to="/today" className="sidebar-brand" onClick={onClose}>
           <img src={logo} alt="생글로리" className="sidebar-logo" />
           <div className="sidebar-brand-text">
             <span className="sidebar-title">시선온도</span>
             <span className="sidebar-subtitle">시선의 길을 열다</span>
           </div>
-        </div>
+        </Link>
 
         <nav className="sidebar-nav">
-          {NAV_ITEMS.map((item) => (
-            <div
-              key={item.key}
-              className={`nav-item${activeTab === item.key ? ' active' : ''}`}
-              onClick={() => onSelectTab(item.key)}
+          {ROUTES.map((route) => (
+            <NavLink
+              key={route.key}
+              to={route.path}
+              className={({ isActive }) => `nav-item${isActive ? ' active' : ''}`}
+              onClick={onClose}
             >
               <span className="nav-dot" />
-              {item.label}
-            </div>
+              {route.label}
+            </NavLink>
           ))}
         </nav>
 

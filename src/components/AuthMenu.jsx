@@ -16,9 +16,9 @@ export default function AuthMenu() {
     return (
       <div className="header-auth-user">
         <span className="header-auth-name">{user.name || user.email}</span>
-        <span className="header-auth-logout" onClick={logout}>
+        <button type="button" className="header-auth-logout" onClick={logout}>
           로그아웃
-        </span>
+        </button>
       </div>
     )
   }
@@ -63,9 +63,9 @@ export default function AuthMenu() {
 
   return (
     <div className="header-auth">
-      <div className="btn btn-outline" onClick={() => setOpen((v) => !v)}>
+      <button type="button" className="btn btn-outline" onClick={() => setOpen((v) => !v)}>
         로그인
-      </div>
+      </button>
 
       {open && (
         <>
@@ -130,9 +130,13 @@ export default function AuthMenu() {
 
             <div className="auth-toggle">
               {isLogin ? '아직 계정이 없으신가요?' : '이미 계정이 있으신가요?'}{' '}
-              <span onClick={() => setMode(isLogin ? 'register' : 'login')}>
+              <button
+                type="button"
+                className="auth-toggle-btn"
+                onClick={() => setMode(isLogin ? 'register' : 'login')}
+              >
                 {isLogin ? '가입하기' : '로그인'}
-              </span>
+              </button>
             </div>
           </div>
         </>

@@ -55,7 +55,7 @@ export default function TasksPage({ tasks, onToggleTask, onSetDate, onNoteChange
               onNoteChange={onNoteChange}
             />
           ))}
-          <div className="task-add">＋ 태스크 추가</div>
+          <div className="task-add">＋ 할 일 추가</div>
         </div>
       ))}
 

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { BrowserRouter, Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 import './App.css'
 import { AuthProvider, useAuth } from './auth/AuthContext.jsx'
 import Sidebar from './components/Sidebar.jsx'
@@ -14,60 +15,67 @@ import { useTasks } from './firestore/tasks.js'
 import { useEmotions } from './firestore/emotions.js'
 import { useCondition } from './firestore/condition.js'
 import { useQuotes } from './firestore/quotes.js'
+import { PATH_BY_KEY } from './routes.js'
 
 function Workspace() {
   const { user } = useAuth()
-  const [tab, setTab] = useState('today')
   const [menuOpen, setMenuOpen] = useState(false)
   const { condition, setCondition } = useCondition(user)
   const { tasks, toggleTask, setTaskDate, updateTaskNote } = useTasks(user)
   const { emotions, addEmotion, canSave } = useEmotions(user)
   const { saved, toggleSave, updateNote } = useQuotes(user)
+  const navigate = useNavigate()
 
   return (
     <div className="workspace">
-      <Sidebar
-        activeTab={tab}
-        onSelectTab={(t) => {
-          setTab(t)
-          setMenuOpen(false)
-        }}
-        condition={condition}
-        open={menuOpen}
-        onClose={() => setMenuOpen(false)}
-      />
+      <Sidebar condition={condition} open={menuOpen} onClose={() => setMenuOpen(false)} />
       <div className="workspace-main">
-        <Header activeTab={tab} onMenuToggle={() => setMenuOpen((v) => !v)} />
+        <Header onMenuToggle={() => setMenuOpen((v) => !v)} />
         <main className="workspace-content">
-          {tab === 'today' && (
-            <TodayPage
-              condition={condition}
-              onSelectCondition={setCondition}
-              tasks={tasks}
-              onToggleTask={toggleTask}
-              emotions={emotions}
-              onGoEmotion={() => setTab('emotion')}
-              onGoQuotes={() => setTab('quotes')}
-              onGoPauseChoose={() => setTab('pausechoose')}
+          <Routes>
+            <Route path="/" element={<Navigate to="/today" replace />} />
+            <Route
+              path="/today"
+              element={
+                <TodayPage
+                  condition={condition}
+                  onSelectCondition={setCondition}
+                  tasks={tasks}
+                  onToggleTask={toggleTask}
+                  emotions={emotions}
+                  onGoEmotion={() => navigate('/emotion')}
+                  onGoQuotes={() => navigate('/quotes')}
+                  onGoPauseChoose={() => navigate('/pause-and-choose')}
+                />
+              }
             />
-          )}
-          {tab === 'emotion' && (
-            <EmotionPage emotions={emotions} onSave={addEmotion} canSave={canSave} />
-          )}
-          {tab === 'calendar' && <CalendarPage />}
-          {tab === 'tasks' && (
-            <TasksPage
-              tasks={tasks}
-              onToggleTask={toggleTask}
-              onSetDate={setTaskDate}
-              onNoteChange={updateTaskNote}
+            <Route
+              path="/emotion"
+              element={<EmotionPage emotions={emotions} onSave={addEmotion} canSave={canSave} />}
             />
-          )}
-          {tab === 'records' && <RecordsPage emotions={emotions} tasks={tasks} />}
-          {tab === 'quotes' && (
-            <QuotesPage saved={saved} onToggleSave={toggleSave} onUpdateNote={updateNote} />
-          )}
-          {tab === 'pausechoose' && <PauseChoosePage onNavigate={setTab} />}
+            <Route path="/calendar" element={<CalendarPage />} />
+            <Route
+              path="/tasks"
+              element={
+                <TasksPage
+                  tasks={tasks}
+                  onToggleTask={toggleTask}
+                  onSetDate={setTaskDate}
+                  onNoteChange={updateTaskNote}
+                />
+              }
+            />
+            <Route path="/flow" element={<RecordsPage emotions={emotions} tasks={tasks} />} />
+            <Route
+              path="/quotes"
+              element={<QuotesPage saved={saved} onToggleSave={toggleSave} onUpdateNote={updateNote} />}
+            />
+            <Route
+              path="/pause-and-choose"
+              element={<PauseChoosePage onNavigate={(key) => navigate(PATH_BY_KEY[key] || '/today')} />}
+            />
+            <Route path="*" element={<Navigate to="/today" replace />} />
+          </Routes>
         </main>
       </div>
     </div>
@@ -77,7 +85,9 @@ function Workspace() {
 export default function App() {
   return (
     <AuthProvider>
-      <Workspace />
+      <BrowserRouter>
+        <Workspace />
+      </BrowserRouter>
     </AuthProvider>
   )
 }

@@ -1,18 +1,20 @@
+import { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import AuthMenu from './AuthMenu.jsx'
+import { ROUTES } from '../routes.js'
+import { getTodaySeoulLabel } from '../utils/date.js'
 
-const TITLES = {
-  today: '오늘',
-  emotion: '마음 기록',
-  calendar: '캘린더',
-  tasks: '할 일',
-  records: '나의 흐름',
-  quotes: '문장 보관함',
-  pausechoose: '멈춤과 선택',
-}
+export default function Header({ onMenuToggle }) {
+  const location = useLocation()
+  const [todayLabel, setTodayLabel] = useState(() => getTodaySeoulLabel())
 
-const TODAY_LABEL = '2026년 8월 25일 화요일'
+  useEffect(() => {
+    const id = setInterval(() => setTodayLabel(getTodaySeoulLabel()), 60_000)
+    return () => clearInterval(id)
+  }, [])
 
-export default function Header({ activeTab, onMenuToggle }) {
+  const currentRoute = ROUTES.find((r) => r.path === location.pathname)
+
   return (
     <header className="workspace-header">
       <div className="workspace-header-left">
@@ -27,8 +29,8 @@ export default function Header({ activeTab, onMenuToggle }) {
           <span />
         </button>
         <div className="workspace-header-title">
-          <span className="workspace-header-date">{TODAY_LABEL}</span>
-          <span className="workspace-header-page">{TITLES[activeTab]}</span>
+          <span className="workspace-header-date">{todayLabel}</span>
+          <span className="workspace-header-page">{currentRoute?.label}</span>
         </div>
       </div>
       <div className="workspace-header-actions">
