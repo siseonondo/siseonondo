@@ -1,5 +1,5 @@
 import { Link, NavLink } from 'react-router-dom'
-import logo from '../assets/logo.png'
+import logo from '../assets/logo-mark.png'
 import { conditionLabels } from '../data/mockData'
 import { ROUTES } from '../routes.js'
 

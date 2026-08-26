@@ -21,9 +21,8 @@
 }
 
 .sidebar-logo {
-  width: 70px;
   height: 70px;
-  min-width: 70px;
+  width: auto;
   flex-shrink: 0;
   object-fit: contain;
 }
@@ -60,7 +59,7 @@
   padding: 11px 12px;
   border-radius: 11px;
   cursor: pointer;
-  font-size: 14.5px;
+  font-size: 17.5px;
   font-weight: 600;
   color: var(--muted);
   background: transparent;
@@ -162,8 +161,7 @@
   }
 
   .sidebar-logo {
-    width: 60px;
     height: 60px;
-    min-width: 60px;
+    width: auto;
   }
 }
