@@ -21,9 +21,9 @@
 }
 
 .sidebar-logo {
-  width: 90px;
-  height: 90px;
-  min-width: 90px;
+  width: 54px;
+  height: 54px;
+  min-width: 54px;
   flex-shrink: 0;
   object-fit: contain;
 }
@@ -162,8 +162,8 @@
   }
 
   .sidebar-logo {
-    width: 76px;
-    height: 76px;
-    min-width: 76px;
+    width: 46px;
+    height: 46px;
+    min-width: 46px;
   }
 }
