@@ -14,15 +14,17 @@
 .sidebar-brand {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   padding: 0 4px;
   text-decoration: none;
   cursor: pointer;
 }
 
 .sidebar-logo {
-  height: 40px;
-  width: auto;
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
+  flex-shrink: 0;
   object-fit: contain;
 }
 
@@ -157,5 +159,11 @@
     inset: 0;
     background: rgba(28, 26, 23, 0.35);
     z-index: 50;
+  }
+
+  .sidebar-logo {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
   }
 }
