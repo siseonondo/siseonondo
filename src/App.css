@@ -22,3 +22,9 @@
   padding: 30px 36px 40px;
   overflow-x: auto;
 }
+
+@media (max-width: 880px) {
+  .workspace-content {
+    padding: 20px 18px 32px;
+  }
+}

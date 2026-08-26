@@ -6,10 +6,36 @@
   border-bottom: 1px solid var(--border);
 }
 
+.workspace-header-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
 .workspace-header-title {
   display: flex;
   flex-direction: column;
   gap: 3px;
+}
+
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  flex-shrink: 0;
+}
+
+.menu-toggle span {
+  display: block;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--ink);
 }
 
 .workspace-header-date {
@@ -47,4 +73,18 @@
   background: var(--ink);
   color: var(--ink-inverse);
   font-weight: 600;
+}
+
+@media (max-width: 880px) {
+  .menu-toggle {
+    display: flex;
+  }
+
+  .workspace-header {
+    padding: 14px 18px;
+  }
+
+  .workspace-header-page {
+    font-size: 20px;
+  }
 }

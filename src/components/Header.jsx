@@ -12,12 +12,24 @@ const TITLES = {
 
 const TODAY_LABEL = '2026년 8월 25일 화요일'
 
-export default function Header({ activeTab }) {
+export default function Header({ activeTab, onMenuToggle }) {
   return (
     <header className="workspace-header">
-      <div className="workspace-header-title">
-        <span className="workspace-header-date">{TODAY_LABEL}</span>
-        <span className="workspace-header-page">{TITLES[activeTab]}</span>
+      <div className="workspace-header-left">
+        <button
+          type="button"
+          className="menu-toggle"
+          aria-label="메뉴 열기"
+          onClick={onMenuToggle}
+        >
+          <span />
+          <span />
+          <span />
+        </button>
+        <div className="workspace-header-title">
+          <span className="workspace-header-date">{TODAY_LABEL}</span>
+          <span className="workspace-header-page">{TITLES[activeTab]}</span>
+        </div>
       </div>
       <div className="workspace-header-actions">
         <AuthMenu />

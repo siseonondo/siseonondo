@@ -18,6 +18,7 @@ import { useQuotes } from './firestore/quotes.js'
 function Workspace() {
   const { user } = useAuth()
   const [tab, setTab] = useState('today')
+  const [menuOpen, setMenuOpen] = useState(false)
   const { condition, setCondition } = useCondition(user)
   const { tasks, toggleTask, setTaskDate, updateTaskNote } = useTasks(user)
   const { emotions, addEmotion, canSave } = useEmotions(user)
@@ -25,9 +26,18 @@ function Workspace() {
 
   return (
     <div className="workspace">
-      <Sidebar activeTab={tab} onSelectTab={setTab} condition={condition} />
+      <Sidebar
+        activeTab={tab}
+        onSelectTab={(t) => {
+          setTab(t)
+          setMenuOpen(false)
+        }}
+        condition={condition}
+        open={menuOpen}
+        onClose={() => setMenuOpen(false)}
+      />
       <div className="workspace-main">
-        <Header activeTab={tab} />
+        <Header activeTab={tab} onMenuToggle={() => setMenuOpen((v) => !v)} />
         <main className="workspace-content">
           {tab === 'today' && (
             <TodayPage
