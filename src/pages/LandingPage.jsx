@@ -177,7 +177,7 @@ export default function LandingPage() {
         </section>
 
         <section className="landing-section">
-          <h2>감정 뒤에는 필요한 것이 있습니다</h2>
+          <h2>감정 뒤에는 욕구가 있습니다</h2>
           <p className="landing-body">
             누군가 갑자기 화를 내면 우리는 그 말과 표정에 먼저 반응하기 쉽습니다. 하지만 그 사람이
             무엇을 원했는지 알게 되면 상황을 다르게 바라볼 수 있습니다.
