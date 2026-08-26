@@ -1,6 +1,8 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import logo from '../assets/logo-mark.png'
 import AuthMenu from '../components/AuthMenu.jsx'
+import { ROUTES } from '../routes.js'
 
 function HeartIcon() {
   return (
@@ -85,6 +87,8 @@ const FLOW_STAGES = [
 ]
 
 export default function LandingPage() {
+  const [navOpen, setNavOpen] = useState(false)
+
   return (
     <div className="landing">
       <header className="landing-header">
@@ -95,12 +99,50 @@ export default function LandingPage() {
             <span className="landing-brand-sub">시선의 길을 열다</span>
           </div>
         </Link>
+
+        <nav className="landing-nav">
+          {ROUTES.map((route) => (
+            <Link key={route.key} to={route.path} className="landing-nav-link">
+              {route.label}
+            </Link>
+          ))}
+        </nav>
+
         <div className="landing-header-actions">
           <AuthMenu />
           <Link to="/today" className="landing-start-btn">
             시작하기
           </Link>
+          <button
+            type="button"
+            className="landing-nav-toggle"
+            aria-label="메뉴 열기"
+            aria-expanded={navOpen}
+            onClick={() => setNavOpen((v) => !v)}
+          >
+            <span />
+            <span />
+            <span />
+          </button>
         </div>
+
+        {navOpen && (
+          <>
+            <div className="landing-nav-overlay" onClick={() => setNavOpen(false)} />
+            <nav className="landing-nav-mobile">
+              {ROUTES.map((route) => (
+                <Link
+                  key={route.key}
+                  to={route.path}
+                  className="landing-nav-mobile-link"
+                  onClick={() => setNavOpen(false)}
+                >
+                  {route.label}
+                </Link>
+              ))}
+            </nav>
+          </>
+        )}
       </header>
 
       <main className="landing-main">
