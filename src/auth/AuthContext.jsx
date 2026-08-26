@@ -3,6 +3,8 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
   signOut,
   updateProfile,
 } from 'firebase/auth'
@@ -28,7 +30,10 @@ function mapFirebaseError(code) {
     case 'auth/invalid-email':
       return '올바른 이메일을 입력해주세요.'
     case 'auth/operation-not-allowed':
-      return 'Firebase 콘솔에서 이메일/비밀번호 로그인이 아직 활성화되지 않았습니다.'
+      return 'Firebase 콘솔에서 해당 로그인 방식이 아직 활성화되지 않았습니다.'
+    case 'auth/popup-closed-by-user':
+    case 'auth/cancelled-popup-request':
+      return null
     default:
       return '요청을 처리하지 못했습니다.'
   }
@@ -72,10 +77,22 @@ export function AuthProvider({ children }) {
     }
   }, [])
 
+  const loginWithGoogle = useCallback(async () => {
+    setError(null)
+    try {
+      const cred = await signInWithPopup(auth, new GoogleAuthProvider())
+      return toPublicUser(cred.user)
+    } catch (e) {
+      const msg = mapFirebaseError(e.code)
+      if (msg) setError(msg)
+      throw e
+    }
+  }, [])
+
   const logout = useCallback(() => signOut(auth), [])
 
   return (
-    <AuthContext.Provider value={{ user, loading, error, login, register, logout }}>
+    <AuthContext.Provider value={{ user, loading, error, login, register, loginWithGoogle, logout }}>
       {children}
     </AuthContext.Provider>
   )
