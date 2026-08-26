@@ -9,6 +9,7 @@ import CalendarPage from './pages/CalendarPage.jsx'
 import TasksPage from './pages/TasksPage.jsx'
 import RecordsPage from './pages/RecordsPage.jsx'
 import QuotesPage from './pages/QuotesPage.jsx'
+import PauseChoosePage from './pages/PauseChoosePage.jsx'
 import { useTasks } from './firestore/tasks.js'
 import { useEmotions } from './firestore/emotions.js'
 import { useCondition } from './firestore/condition.js'
@@ -37,6 +38,7 @@ function Workspace() {
               emotions={emotions}
               onGoEmotion={() => setTab('emotion')}
               onGoQuotes={() => setTab('quotes')}
+              onGoPauseChoose={() => setTab('pausechoose')}
             />
           )}
           {tab === 'emotion' && (
@@ -55,6 +57,7 @@ function Workspace() {
           {tab === 'quotes' && (
             <QuotesPage saved={saved} onToggleSave={toggleSave} onUpdateNote={updateNote} />
           )}
+          {tab === 'pausechoose' && <PauseChoosePage onNavigate={setTab} />}
         </main>
       </div>
     </div>

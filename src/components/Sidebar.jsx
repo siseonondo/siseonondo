@@ -8,6 +8,7 @@ const NAV_ITEMS = [
   { key: 'tasks', label: '할 일' },
   { key: 'records', label: '나의 흐름' },
   { key: 'quotes', label: '문장 보관함' },
+  { key: 'pausechoose', label: '멈춤과 선택' },
 ]
 
 export default function Sidebar({ activeTab, onSelectTab, condition }) {

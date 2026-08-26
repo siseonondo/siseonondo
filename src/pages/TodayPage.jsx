@@ -21,6 +21,7 @@ export default function TodayPage({
   emotions,
   onGoEmotion,
   onGoQuotes,
+  onGoPauseChoose,
 }) {
   const todayTasks = tasks.filter((t) => t.bucket === 'today')
   const doneCount = todayTasks.filter((t) => t.done).length
@@ -99,6 +100,16 @@ export default function TodayPage({
               <div className="cta-sub">오늘 {emotions.length}번 기록했어요</div>
             </div>
             <span className="cta-arrow">→</span>
+          </div>
+
+          <div className="card pause-intro-card">
+            <span className="section-title">지금 나를 끌고 가는 힘</span>
+            <p className="pause-intro-desc">
+              오래된 습관이나 다른 사람의 기대에 끌려가고 있지는 않은지 가볍게 살펴보세요.
+            </p>
+            <button className="pause-intro-btn" type="button" onClick={onGoPauseChoose}>
+              확인해보기
+            </button>
           </div>
 
           <div className="card" onClick={onGoQuotes} style={{ cursor: 'pointer' }}>

@@ -7,6 +7,7 @@ const TITLES = {
   tasks: '할 일',
   records: '나의 흐름',
   quotes: '문장 보관함',
+  pausechoose: '멈춤과 선택',
 }
 
 const TODAY_LABEL = '2026년 8월 25일 화요일'
