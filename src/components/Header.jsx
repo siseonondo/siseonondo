@@ -2,14 +2,18 @@ import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import AuthMenu from './AuthMenu.jsx'
 import { ROUTES } from '../routes.js'
-import { getTodaySeoulLabel } from '../utils/date.js'
+import { getTodaySeoulLabel, getNowSeoulTimeLabel } from '../utils/date.js'
 
 export default function Header({ onMenuToggle }) {
   const location = useLocation()
   const [todayLabel, setTodayLabel] = useState(() => getTodaySeoulLabel())
+  const [timeLabel, setTimeLabel] = useState(() => getNowSeoulTimeLabel())
 
   useEffect(() => {
-    const id = setInterval(() => setTodayLabel(getTodaySeoulLabel()), 60_000)
+    const id = setInterval(() => {
+      setTodayLabel(getTodaySeoulLabel())
+      setTimeLabel(getNowSeoulTimeLabel())
+    }, 30_000)
     return () => clearInterval(id)
   }, [])
 
@@ -29,7 +33,9 @@ export default function Header({ onMenuToggle }) {
           <span />
         </button>
         <div className="workspace-header-title">
-          <span className="workspace-header-date">{todayLabel}</span>
+          <span className="workspace-header-date">
+            {todayLabel} · {timeLabel}
+          </span>
           <h1 className="workspace-header-page">{currentRoute?.label}</h1>
         </div>
       </div>

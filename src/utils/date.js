@@ -13,8 +13,19 @@ const SEOUL_PARTS_FORMATTER = new Intl.DateTimeFormat('en-CA', {
   day: '2-digit',
 })
 
+const SEOUL_TIME_FORMATTER = new Intl.DateTimeFormat('ko-KR', {
+  timeZone: 'Asia/Seoul',
+  hour: 'numeric',
+  minute: '2-digit',
+  hour12: true,
+})
+
 export function getTodaySeoulLabel() {
   return SEOUL_LABEL_FORMATTER.format(new Date())
+}
+
+export function getNowSeoulTimeLabel() {
+  return SEOUL_TIME_FORMATTER.format(new Date())
 }
 
 export function getTodaySeoulDate() {
