@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { quotes, quoteCategories, verifiedQuotes, formatSourceLine } from '../data/quotesData'
+import { quoteCollections, findCollectionByCenterQuoteId } from '../data/quoteCollections'
 
 const TODAY_INDEX = 25
 const todaysQuotes = [
@@ -12,12 +13,27 @@ const QUOTE_TYPE_LABEL = {
   interpretation: '뜻을 풀어쓴 문장',
 }
 
-function QuoteCard({ quote, isSaved, onToggleSave, note, onNoteChange }) {
+function getQuoteById(id) {
+  return quotes.find((q) => q.id === id) || null
+}
+
+function QuoteCard({ quote, saved, onToggleSave, onUpdateNote, size, relation }) {
   const [sourceOpen, setSourceOpen] = useState(false)
+  const [readTogetherOpen, setReadTogetherOpen] = useState(false)
   const isTranslation = quote.quoteType === 'translation'
+  const isSaved = !!saved[quote.id]
+  const note = saved[quote.id]?.note
+  const collection = findCollectionByCenterQuoteId(quote.id)
 
   return (
-    <div className="quote-card">
+    <div className={`quote-card${size === 'center' ? ' quote-card-center' : ''}`}>
+      {relation && (
+        <div className="quote-relation">
+          <span className="quote-relation-tag">{relation.label}</span>
+          <p className="quote-relation-note">{relation.note}</p>
+        </div>
+      )}
+
       <div className="quote-card-body">
         <div className="quote-card-text">{isTranslation ? `"${quote.text}"` : quote.text}</div>
         <div className="quote-card-meta">
@@ -31,14 +47,27 @@ function QuoteCard({ quote, isSaved, onToggleSave, note, onNoteChange }) {
           </div>
         </div>
 
-        <button
-          type="button"
-          className="quote-source-toggle"
-          aria-expanded={sourceOpen}
-          onClick={() => setSourceOpen((v) => !v)}
-        >
-          {sourceOpen ? '출처 접기' : '출처 보기'}
-        </button>
+        <div className="quote-card-toggles">
+          <button
+            type="button"
+            className="quote-source-toggle"
+            aria-expanded={sourceOpen}
+            onClick={() => setSourceOpen((v) => !v)}
+          >
+            {sourceOpen ? '출처 접기' : '출처 보기'}
+          </button>
+
+          {collection && (
+            <button
+              type="button"
+              className="quote-source-toggle"
+              aria-expanded={readTogetherOpen}
+              onClick={() => setReadTogetherOpen((v) => !v)}
+            >
+              {readTogetherOpen ? '함께 읽기 접기' : '함께 읽기'}
+            </button>
+          )}
+        </div>
 
         {sourceOpen && (
           <div className="quote-source-detail">
@@ -83,7 +112,23 @@ function QuoteCard({ quote, isSaved, onToggleSave, note, onNoteChange }) {
             )}
           </div>
         )}
+
+        {readTogetherOpen && collection && (
+          <div className="quote-collection-pair">
+            {collection.connections.map((conn) => (
+              <QuoteCard
+                key={conn.quoteId}
+                quote={getQuoteById(conn.quoteId)}
+                saved={saved}
+                onToggleSave={onToggleSave}
+                onUpdateNote={onUpdateNote}
+                relation={{ label: conn.relationLabel, note: conn.relationNote }}
+              />
+            ))}
+          </div>
+        )}
       </div>
+
       <button
         type="button"
         className={`quote-save-btn${isSaved ? ' saved' : ''}`}
@@ -97,7 +142,7 @@ function QuoteCard({ quote, isSaved, onToggleSave, note, onNoteChange }) {
           className="task-note-input"
           placeholder="짧은 메모"
           defaultValue={note || ''}
-          onBlur={(e) => onNoteChange(quote.id, e.target.value)}
+          onBlur={(e) => onUpdateNote(quote.id, e.target.value)}
         />
       )}
     </div>
@@ -122,14 +167,7 @@ export default function QuotesPage({ saved, onToggleSave, onUpdateNote }) {
   const savedQuotes = quotes.filter((q) => saved[q.id])
 
   const renderCard = (q) => (
-    <QuoteCard
-      key={q.id}
-      quote={q}
-      isSaved={!!saved[q.id]}
-      onToggleSave={onToggleSave}
-      note={saved[q.id]?.note}
-      onNoteChange={onUpdateNote}
-    />
+    <QuoteCard key={q.id} quote={q} saved={saved} onToggleSave={onToggleSave} onUpdateNote={onUpdateNote} />
   )
 
   return (
@@ -141,24 +179,43 @@ export default function QuotesPage({ saved, onToggleSave, onUpdateNote }) {
         <div className="quote-list">{todaysQuotes.map(renderCard)}</div>
       </div>
 
+      {quoteCollections.length > 0 && (
+        <div className="section">
+          <div className="section-header">
+            <span className="section-title">같은 고민, 다른 시선</span>
+          </div>
+          {quoteCollections.map((col) => {
+            const center = getQuoteById(col.centerQuoteId)
+            if (!center) return null
+            return (
+              <div className="quote-collection" key={col.id}>
+                <div className="quote-collection-topic">{col.title}</div>
+                <QuoteCard quote={center} saved={saved} onToggleSave={onToggleSave} onUpdateNote={onUpdateNote} size="center" />
+                <div className="quote-collection-pair">
+                  {col.connections.map((conn) => (
+                    <QuoteCard
+                      key={conn.quoteId}
+                      quote={getQuoteById(conn.quoteId)}
+                      saved={saved}
+                      onToggleSave={onToggleSave}
+                      onUpdateNote={onUpdateNote}
+                      relation={{ label: conn.relationLabel, note: conn.relationNote }}
+                    />
+                  ))}
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      )}
+
       {savedQuotes.length > 0 && (
         <div className="section">
           <div className="section-header">
             <span className="section-title">저장한 문장</span>
             <span className="section-meta">{savedQuotes.length}개</span>
           </div>
-          <div className="quote-list">
-            {savedQuotes.map((q) => (
-              <QuoteCard
-                key={q.id}
-                quote={q}
-                isSaved
-                onToggleSave={onToggleSave}
-                note={saved[q.id]?.note}
-                onNoteChange={onUpdateNote}
-              />
-            ))}
-          </div>
+          <div className="quote-list">{savedQuotes.map(renderCard)}</div>
         </div>
       )}
 
