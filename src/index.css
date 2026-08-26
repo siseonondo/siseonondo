@@ -26,6 +26,11 @@
   --priority-high: #b4482f;
   --priority-mid: #c9a227;
 
+  --accent: #5b2a8c;
+  --accent-strong: #4a2170;
+  --accent-soft: #f1e9f9;
+  --accent-ink: #ffffff;
+
   --font-sans: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-serif: 'Gowun Batang', serif;
   --font-mono: 'IBM Plex Mono', monospace;

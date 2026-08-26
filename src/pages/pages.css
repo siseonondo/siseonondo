@@ -2,7 +2,9 @@
 .card {
   background: var(--card-bg);
   border-radius: 20px;
-  padding: 26px 28px;
+  border: 1px solid var(--border-light);
+  box-shadow: 0 1px 2px rgba(28, 26, 23, 0.03);
+  padding: 24px;
   display: flex;
   flex-direction: column;
   gap: 18px;
@@ -66,10 +68,16 @@
 }
 
 /* today */
+.today-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
 .today-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
-  gap: 26px;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  gap: 24px;
   align-items: start;
 }
 
@@ -77,7 +85,11 @@
 .today-right {
   display: flex;
   flex-direction: column;
-  gap: 26px;
+  gap: 22px;
+}
+
+.today-full {
+  width: 100%;
 }
 
 .condition-options {
@@ -87,28 +99,32 @@
 
 .condition-option {
   flex: 1;
-  padding: 18px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 14px 0;
   border-radius: 14px;
   border: 1px solid var(--border-input);
   text-align: center;
-  font-size: 13px;
-  color: var(--faint);
   cursor: pointer;
   background: transparent;
+  color: var(--faint);
+}
+
+.condition-option-num {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.condition-option-label {
+  font-size: 10.5px;
 }
 
 .condition-option.selected {
   border: none;
-  background: var(--ink);
-  color: var(--ink-inverse);
-  font-weight: 600;
-}
-
-.condition-scale-labels {
-  display: flex;
-  justify-content: space-between;
-  font-size: 11.5px;
-  color: var(--faint);
+  background: var(--accent);
+  color: var(--accent-ink);
 }
 
 .schedule-list {
@@ -191,8 +207,8 @@
 }
 
 .checkbox.checked {
-  background: var(--ink);
-  color: var(--ink-inverse);
+  background: var(--accent);
+  color: var(--accent-ink);
   border: none;
   display: flex;
   align-items: center;
@@ -246,9 +262,11 @@
 }
 
 .cta-card {
-  padding: 24px 28px;
+  background: var(--card-bg);
+  padding: 24px;
   border-radius: 20px;
-  border: 1px dashed var(--dash-border);
+  border: 1px solid var(--border-light);
+  box-shadow: 0 1px 2px rgba(28, 26, 23, 0.03);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -270,8 +288,8 @@
   width: 38px;
   height: 38px;
   border-radius: 50%;
-  background: var(--ink);
-  color: var(--ink-inverse);
+  background: var(--accent);
+  color: var(--accent-ink);
   display: flex;
   align-items: center;
   justify-content: center;

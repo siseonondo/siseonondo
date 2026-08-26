@@ -2,14 +2,14 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 22px 36px;
+  padding: 17px 36px;
   border-bottom: 1px solid var(--border);
 }
 
 .workspace-header-title {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 3px;
 }
 
 .workspace-header-date {

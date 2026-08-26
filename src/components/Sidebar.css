@@ -62,8 +62,8 @@
 }
 
 .nav-item.active {
-  background: var(--ink);
-  color: var(--ink-inverse);
+  background: var(--accent-soft);
+  color: var(--accent);
 }
 
 .nav-dot {

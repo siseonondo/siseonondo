@@ -19,7 +19,6 @@ export default function Header({ activeTab }) {
         <span className="workspace-header-page">{TITLES[activeTab]}</span>
       </div>
       <div className="workspace-header-actions">
-        <div className="btn btn-outline">오늘로</div>
         <AuthMenu />
       </div>
     </header>
