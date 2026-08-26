@@ -1,6 +1,7 @@
 @import './components/Sidebar.css';
 @import './components/Header.css';
 @import './pages/pages.css';
+@import './pages/LandingPage.css';
 
 .workspace {
   display: flex;

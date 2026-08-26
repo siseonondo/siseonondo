@@ -1,9 +1,10 @@
 import { useState } from 'react'
-import { BrowserRouter, Routes, Route, Navigate, useNavigate } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom'
 import './App.css'
 import { AuthProvider, useAuth } from './auth/AuthContext.jsx'
 import Sidebar from './components/Sidebar.jsx'
 import Header from './components/Header.jsx'
+import LandingPage from './pages/LandingPage.jsx'
 import TodayPage from './pages/TodayPage.jsx'
 import EmotionPage from './pages/EmotionPage.jsx'
 import CalendarPage from './pages/CalendarPage.jsx'
@@ -25,6 +26,11 @@ function Workspace() {
   const { emotions, addEmotion, canSave } = useEmotions(user)
   const { saved, toggleSave, updateNote } = useQuotes(user)
   const navigate = useNavigate()
+  const location = useLocation()
+
+  if (location.pathname === '/') {
+    return <LandingPage />
+  }
 
   return (
     <div className="workspace">
@@ -33,7 +39,6 @@ function Workspace() {
         <Header onMenuToggle={() => setMenuOpen((v) => !v)} />
         <main className="workspace-content">
           <Routes>
-            <Route path="/" element={<Navigate to="/today" replace />} />
             <Route
               path="/today"
               element={
