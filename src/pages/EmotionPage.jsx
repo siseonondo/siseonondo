@@ -3,18 +3,26 @@ import { emotionOptions, areaOptions, needOptions } from '../data/mockData'
 import PageMeta from '../components/PageMeta.jsx'
 
 export default function EmotionPage({ emotions, onSave, canSave }) {
-  const [selectedEmotion, setSelectedEmotion] = useState(emotionOptions[0])
-  const [intensity, setIntensity] = useState(3)
-  const [selectedArea, setSelectedArea] = useState(areaOptions[0])
-  const [selectedNeed, setSelectedNeed] = useState(needOptions[0])
+  const [selectedEmotion, setSelectedEmotion] = useState(null)
+  const [intensity, setIntensity] = useState(null)
+  const [selectedArea, setSelectedArea] = useState(null)
+  const [selectedNeed, setSelectedNeed] = useState(null)
   const [note, setNote] = useState('')
   const [saving, setSaving] = useState(false)
 
+  const isComplete =
+    selectedEmotion != null && intensity != null && selectedArea != null && selectedNeed != null
+  const canSubmit = canSave && isComplete && !saving
+
   const handleSave = async () => {
-    if (!canSave || saving) return
+    if (!canSubmit) return
     setSaving(true)
     try {
       await onSave(selectedEmotion, note, selectedNeed, intensity, selectedArea)
+      setSelectedEmotion(null)
+      setIntensity(null)
+      setSelectedArea(null)
+      setSelectedNeed(null)
       setNote('')
     } finally {
       setSaving(false)
@@ -154,11 +162,12 @@ export default function EmotionPage({ emotions, onSave, canSave }) {
           type="button"
           className="form-submit"
           onClick={handleSave}
-          disabled={!canSave}
-          style={!canSave ? { opacity: 0.5, cursor: 'default' } : undefined}
+          disabled={!canSubmit}
+          style={!canSubmit ? { opacity: 0.5, cursor: 'default' } : undefined}
         >
-          {canSave ? (saving ? '저장 중…' : '저장하기') : '로그인하면 저장돼요'}
+          {saving ? '저장 중…' : '저장하기'}
         </button>
+        {!isComplete && <p className="form-submit-hint">위 항목을 차례로 선택해주세요.</p>}
       </div>
     </div>
   )

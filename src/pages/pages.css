@@ -560,6 +560,13 @@
   appearance: none;
 }
 
+.form-submit-hint {
+  margin: 0;
+  text-align: center;
+  font-size: 12px;
+  color: var(--faint);
+}
+
 /* calendar page */
 .calendar-toolbar {
   display: flex;

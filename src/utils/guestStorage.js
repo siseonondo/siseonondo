@@ -7,6 +7,7 @@ function emptyState() {
   return {
     version: STORAGE_VERSION,
     condition: null, // 아직 아무 컨디션도 선택하지 않은 상태
+    conditionUpdatedAt: null, // 컨디션을 선택한 실제 시각(ms) — 이전 데이터에는 없을 수 있어 기본값 null로 안전하게 처리
     tasks: [],
     emotions: [],
     savedQuotes: {},

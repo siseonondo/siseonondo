@@ -1,23 +1,16 @@
-import { todaySchedule, conditionHistory } from '../data/mockData'
+import { todaySchedule, conditionHistory, conditionLabels } from '../data/mockData'
 import { verifiedQuotes, formatSourceLine } from '../data/quotesData'
+import { formatLocalTimeLabel } from '../utils/date.js'
 import PageMeta from '../components/PageMeta.jsx'
 import { useAuth } from '../auth/AuthContext.jsx'
 import { DEMO_MODE } from '../config/authConfig.js'
 
-const CONDITION_UPDATED_AT = '14:20 갱신'
 const TODAY_INDEX = 25
 const todayQuote = verifiedQuotes[TODAY_INDEX % verifiedQuotes.length]
 
-const CONDITION_OPTION_LABELS = {
-  1: '많이 지침',
-  2: '조금 지침',
-  3: '보통',
-  4: '가벼움',
-  5: '매우 가벼움',
-}
-
 export default function TodayPage({
   condition,
+  conditionUpdatedAt,
   onSelectCondition,
   tasks,
   onToggleTask,
@@ -44,7 +37,9 @@ export default function TodayPage({
           <div className="card">
             <div className="card-row-title">
               <span className="title-serif">지금 컨디션은 어떤가요</span>
-              {condition && <span className="meta-mono">{CONDITION_UPDATED_AT}</span>}
+              {condition && conditionUpdatedAt && (
+                <span className="meta-mono">{formatLocalTimeLabel(conditionUpdatedAt)} 갱신</span>
+              )}
             </div>
             <div className="condition-options">
               {[1, 2, 3, 4, 5].map((n) => (
@@ -56,7 +51,7 @@ export default function TodayPage({
                   aria-pressed={n === condition}
                 >
                   <span className="condition-option-num">{n}</span>
-                  <span className="condition-option-label">{CONDITION_OPTION_LABELS[n]}</span>
+                  <span className="condition-option-label">{conditionLabels[n]}</span>
                 </button>
               ))}
             </div>
@@ -119,9 +114,9 @@ export default function TodayPage({
 
         <div className="today-right">
           <div className="card card-selfcare">
-            <span className="meta-mono-green">나를 위한 일</span>
-            <span className="title-serif-green">해 지기 전에 20분 산책하기</span>
-            <span className="sub-green">오늘 하나면 충분해요</span>
+            <span className="meta-mono-green">오늘의 제안</span>
+            <span className="title-serif-green">해 지기 전에 20분 산책해보세요.</span>
+            <span className="sub-green">지금의 나에게 맞는다면 가볍게 실천해보세요.</span>
           </div>
 
           <button type="button" className="cta-card" onClick={onGoEmotion}>

@@ -106,7 +106,7 @@ export const emotionOptions = ['기쁨', '불안', '짜증', '무기력', '평�
 export const areaOptions = ['일', '관계', '가족', '건강', '돈', '미래', '나 자신']
 export const needOptions = ['휴식', '대화', '혼자 있는 시간', '도움', '용기', '기다림']
 
-export const conditionLabels = { 1: '많이 지침', 2: '지침', 3: '보통', 4: '괜찮음', 5: '가벼움' }
+export const conditionLabels = { 1: '많이 지침', 2: '조금 지침', 3: '보통', 4: '가벼움', 5: '매우 가벼움' }
 
 export const conditionHistory = [
   { day: 19, level: 2 },

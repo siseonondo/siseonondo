@@ -20,12 +20,23 @@ const SEOUL_TIME_FORMATTER = new Intl.DateTimeFormat('ko-KR', {
   hour12: true,
 })
 
+// 타임존을 지정하지 않아 사용자의 현재 브라우저(로컬) 시간대를 기준으로 표시합니다.
+const LOCAL_TIME_FORMATTER = new Intl.DateTimeFormat('ko-KR', {
+  hour: 'numeric',
+  minute: '2-digit',
+  hour12: true,
+})
+
 export function getTodaySeoulLabel() {
   return SEOUL_LABEL_FORMATTER.format(new Date())
 }
 
 export function getNowSeoulTimeLabel() {
   return SEOUL_TIME_FORMATTER.format(new Date())
+}
+
+export function formatLocalTimeLabel(date) {
+  return LOCAL_TIME_FORMATTER.format(date)
 }
 
 export function getTodaySeoulDate() {

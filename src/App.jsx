@@ -30,7 +30,7 @@ const TOOL_PATHS = ROUTES.map((r) => r.path)
 function Workspace() {
   const { user } = useAuth()
   const [menuOpen, setMenuOpen] = useState(false)
-  const { condition, setCondition } = useCondition(user)
+  const { condition, conditionUpdatedAt, setCondition } = useCondition(user)
   const { tasks, toggleTask, setTaskDate, updateTaskNote } = useTasks(user)
   const { emotions, addEmotion, canSave } = useEmotions(user)
   const { saved, toggleSave, updateNote } = useQuotes(user)
@@ -69,6 +69,7 @@ function Workspace() {
               element={
                 <TodayPage
                   condition={condition}
+                  conditionUpdatedAt={conditionUpdatedAt}
                   onSelectCondition={setCondition}
                   tasks={tasks}
                   onToggleTask={toggleTask}
