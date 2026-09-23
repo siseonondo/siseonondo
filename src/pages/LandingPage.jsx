@@ -1,9 +1,10 @@
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import logo from '../assets/logo-mark.png'
-import AuthMenu from '../components/AuthMenu.jsx'
+import SiteHeader from '../components/SiteHeader.jsx'
+import SiteFooter from '../components/SiteFooter.jsx'
 import PageMeta from '../components/PageMeta.jsx'
-import { ROUTES } from '../routes.js'
+import { books } from '../data/booksData.js'
+import { programs } from '../data/programsData.js'
+import { writings } from '../data/writingsData.js'
 
 function HeartIcon() {
   return (
@@ -103,68 +104,17 @@ const FLOW_STAGES = [
   { hanja: '億', title: '내가 향하는 방향 보기' },
 ]
 
-export default function LandingPage() {
-  const [navOpen, setNavOpen] = useState(false)
+const firstBook = books[0]
+const previewWritings = writings.slice(0, 3)
 
+export default function LandingPage() {
   return (
     <div className="landing">
       <PageMeta
-        title="신다미의 자기경영 공간 — 도덕경으로 읽는 오늘의 마음"
-        description="시선온도는 신다미가 만든 자기경영 공간입니다. '시선을 켜다'는 ON과 '자신의 길'을 뜻하는 道를 담아, 도덕경 문장과 함께 감정 뒤의 욕구를 살피고 오늘의 선택을 기록합니다."
+        title="신다미의 글과 자기경영"
+        description="철학자이자 작가 신다미가 도덕경을 바탕으로 삶의 질문과 선택을 나누는 공간입니다. 책, 자기경영, 아트살롱, AI 리터러시 활동과 기록 도구를 만날 수 있습니다."
       />
-      <header className="landing-header">
-        <Link to="/" className="landing-brand">
-          <img src={logo} alt="생글로리" className="landing-logo" />
-          <div className="landing-brand-text">
-            <span className="landing-brand-title">시선온도</span>
-            <span className="landing-brand-sub">시선의 길을 열다</span>
-          </div>
-        </Link>
-
-        <nav className="landing-nav">
-          {ROUTES.map((route) => (
-            <Link key={route.key} to={route.path} className="landing-nav-link">
-              {route.label}
-            </Link>
-          ))}
-        </nav>
-
-        <div className="landing-header-actions">
-          <AuthMenu />
-          <Link to="/today" className="landing-start-btn">
-            시작하기
-          </Link>
-          <button
-            type="button"
-            className="landing-nav-toggle"
-            aria-label="메뉴 열기"
-            aria-expanded={navOpen}
-            onClick={() => setNavOpen((v) => !v)}
-          >
-            <span />
-            <span />
-            <span />
-          </button>
-        </div>
-
-        {navOpen && (
-          <>
-            <div className="landing-nav-overlay" onClick={() => setNavOpen(false)} />
-            <nav className="landing-nav-mobile">
-              {ROUTES.map((route) => (
-                <Link
-                  key={route.key}
-                  to={route.path}
-                  className="landing-nav-mobile-link"
-                  onClick={() => setNavOpen(false)}
-                >
-                  {route.label}
-                </Link>
-              ))}
-            </nav>
-          </>
-        )}
-      </header>
+      <SiteHeader />
 
       <main className="landing-main">
         <section className="landing-hero">
@@ -253,15 +203,97 @@ export default function LandingPage() {
           </Link>
         </section>
 
+        <section className="landing-section about-preview-section">
+          <img src="/profile-shindami.jpg" alt="신다미 프로필 사진" className="about-photo about-photo-small" />
+          <h2>질문을 통해 삶을 바라보는 사람</h2>
+          <p className="landing-body">
+            신다미는 도덕경을 바탕으로 삶을 바라보고, 글을 쓰고, 사람들과 질문을 나누는 철학자이자
+            작가입니다.
+          </p>
+          <p className="landing-body">
+            빠르게 답을 얻는 시대일수록 잠시 멈추어 자신이 무엇을 보고 있는지, 무엇을 선택하려
+            하는지 살펴보아야 한다고 생각합니다.
+          </p>
+          <p className="landing-body">
+            시선온도는 자신을 바라보는 시선을 켜고, 자신의 길을 찾아가기 위해 만든 공간입니다.
+          </p>
+          <Link to="/about" className="pause-cta">
+            신다미 소개 보기 →
+          </Link>
+        </section>
+
+        {firstBook && (
+          <section className="landing-section">
+            <h2>책에서 시작된 질문</h2>
+            <Link to={`/books/${firstBook.slug}`} className="book-card book-card-preview">
+              <div className="book-cover" aria-hidden="true">
+                {firstBook.coverImage ? (
+                  <img src={firstBook.coverImage} alt={`${firstBook.title} 표지`} />
+                ) : (
+                  <span className="book-cover-placeholder">표지 준비 중</span>
+                )}
+              </div>
+              <div className="book-card-body">
+                <h3 className="book-card-title">{firstBook.title}</h3>
+                <p className="book-card-meta">
+                  {firstBook.author} · {firstBook.publisher} · {firstBook.publishedDate}
+                </p>
+                <p className="book-card-summary">{firstBook.summary}</p>
+              </div>
+            </Link>
+            <Link to={`/books/${firstBook.slug}`} className="pause-cta">
+              책 이야기 보기 →
+            </Link>
+          </section>
+        )}
+
         <section className="landing-section">
-          <p className="landing-body">오늘의 나를 알아차리는 것부터 시작합니다.</p>
+          <h2>시선을 나누는 글</h2>
+          {previewWritings.length === 0 ? (
+            <p className="landing-body writing-empty-note">
+              아직 게시된 글이 없습니다. 글이 준비되는 대로 이곳에서 만나보실 수 있습니다.
+            </p>
+          ) : (
+            <div className="writing-list">
+              {previewWritings.map((w) => (
+                <Link key={w.slug} to={`/writings/${w.slug}`} className="cta-card writing-card">
+                  <div className="landing-feature-text">
+                    <div className="cta-title">{w.title}</div>
+                    <div className="cta-sub">{w.excerpt}</div>
+                  </div>
+                  <span className="cta-arrow">→</span>
+                </Link>
+              ))}
+            </div>
+          )}
+          <Link to="/writings" className="pause-cta">
+            글 목록 보기 →
+          </Link>
+        </section>
+
+        <section className="landing-section">
+          <h2>생각을 삶에서 나누는 일</h2>
+          <div className="program-list-section program-list-preview">
+            {programs.map((program) => (
+              <Link key={program.slug} to={`/programs/${program.slug}`} className="cta-card program-card">
+                <div className="landing-feature-text">
+                  <div className="cta-title">{program.title}</div>
+                </div>
+                <span className="cta-arrow">→</span>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        <section className="landing-section">
+          <p className="landing-body">생각을 읽는 데서 멈추지 않고, 오늘의 나를 직접 살펴봅니다.</p>
           <Link to="/today" className="pause-cta">
-            오늘의 나 살펴보기
+            오늘의 나 살펴보기 →
           </Link>
         </section>
       </main>
 
-      <footer className="landing-footer">시선온도 · 시선의 길을 열다 · 만든 사람 신다미 · siseonondo.kr</footer>
+      <SiteFooter />
     </div>
   )
 }

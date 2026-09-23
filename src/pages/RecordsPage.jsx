@@ -44,6 +44,7 @@ export default function RecordsPage({ emotions = [], tasks = [] }) {
       <PageMeta
         title="나의 흐름"
         description="반복되는 감정과 필요, 선택의 흐름을 돌아보는 시선온도의 기록 공간입니다."
+        noindex
       />
       <div className="flow-summary-row">
         <div className="card flow-summary-card">

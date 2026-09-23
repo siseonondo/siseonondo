@@ -83,6 +83,7 @@ export default function PauseChoosePage({ onNavigate }) {
       <PageMeta
         title="멈춤과 선택 · 자기경영의 흐름"
         description="나를 끌고 가는 힘을 살펴보고, 正見取意動感億 자기경영의 흐름을 따라 오늘 할 수 있는 것을 선택합니다."
+        noindex
       />
       <div className="card pause-section">
         <span className="title-serif">나를 끌고 가는 힘</span>

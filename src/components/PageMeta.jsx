@@ -14,19 +14,23 @@ function setMetaTag(attr, key, content) {
   el.setAttribute('content', content)
 }
 
-export default function PageMeta({ title, description }) {
+export default function PageMeta({ title, description, image, noindex = false }) {
   useEffect(() => {
     const fullTitle = title ? `${title} · 시선온도` : '시선온도 | 신다미의 자기경영 공간'
     const desc = description || DEFAULT_DESCRIPTION
     const url = SITE_URL + window.location.pathname
+    const img = image || `${SITE_URL}/og-image.png`
 
     document.title = fullTitle
     setMetaTag('name', 'description', desc)
+    setMetaTag('name', 'robots', noindex ? 'noindex, nofollow' : 'index, follow')
     setMetaTag('property', 'og:title', fullTitle)
     setMetaTag('property', 'og:description', desc)
     setMetaTag('property', 'og:url', url)
+    setMetaTag('property', 'og:image', img)
     setMetaTag('name', 'twitter:title', fullTitle)
     setMetaTag('name', 'twitter:description', desc)
+    setMetaTag('name', 'twitter:image', img)
 
     let canonical = document.querySelector('link[rel="canonical"]')
     if (!canonical) {
@@ -35,7 +39,7 @@ export default function PageMeta({ title, description }) {
       document.head.appendChild(canonical)
     }
     canonical.setAttribute('href', url)
-  }, [title, description])
+  }, [title, description, image, noindex])
 
   return null
 }

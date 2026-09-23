@@ -1,4 +1,54 @@
+# 공개 콘텐츠(홈, 신다미 소개, 책, 생각, 함께하는 일)는 모든 검색/AI 로봇에 공개합니다.
+# 로그인 이후의 개인 기록 도구(나의 기록 하위 페이지)는 수집하지 않습니다.
+
 User-agent: *
 Allow: /
+Disallow: /today
+Disallow: /emotion
+Disallow: /calendar
+Disallow: /tasks
+Disallow: /flow
+Disallow: /quotes
+Disallow: /pause-and-choose
+
+User-agent: Googlebot
+Allow: /
+Disallow: /today
+Disallow: /emotion
+Disallow: /calendar
+Disallow: /tasks
+Disallow: /flow
+Disallow: /quotes
+Disallow: /pause-and-choose
+
+User-agent: Bingbot
+Allow: /
+Disallow: /today
+Disallow: /emotion
+Disallow: /calendar
+Disallow: /tasks
+Disallow: /flow
+Disallow: /quotes
+Disallow: /pause-and-choose
+
+User-agent: Yeti
+Allow: /
+Disallow: /today
+Disallow: /emotion
+Disallow: /calendar
+Disallow: /tasks
+Disallow: /flow
+Disallow: /quotes
+Disallow: /pause-and-choose
+
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /today
+Disallow: /emotion
+Disallow: /calendar
+Disallow: /tasks
+Disallow: /flow
+Disallow: /quotes
+Disallow: /pause-and-choose
 
 Sitemap: https://siseonondo.kr/sitemap.xml

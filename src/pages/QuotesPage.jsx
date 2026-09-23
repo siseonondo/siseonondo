@@ -176,6 +176,7 @@ export default function QuotesPage({ saved, onToggleSave, onUpdateNote }) {
       <PageMeta
         title="문장 보관함 · 도덕경과 스토아 철학"
         description="노자 도덕경, 마르쿠스 아우렐리우스 명상록 등에서 고른 문장을 저장하고 다시 읽는 시선온도의 문장 보관함입니다."
+        noindex
       />
       <div className="section">
         <div className="section-header">

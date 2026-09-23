@@ -260,6 +260,7 @@ export default function CalendarPage() {
       <PageMeta
         title="캘린더"
         description="한 달의 기록과 일정을 달력으로 살펴보는 시선온도 캘린더입니다."
+        noindex
       />
       <div className="calendar-toolbar">
         <div className="calendar-toolbar-left">

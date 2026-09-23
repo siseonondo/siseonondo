@@ -33,6 +33,7 @@ export default function TodayPage({
       <PageMeta
         title="오늘"
         description="오늘의 컨디션과 일정, 할 일을 한눈에 살펴보는 신다미의 시선온도 하루 시작 화면입니다."
+        noindex
       />
       <div className="today-grid">
         <div className="today-left">
