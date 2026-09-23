@@ -1,5 +1,6 @@
 import { todaySchedule, conditionHistory } from '../data/mockData'
 import { verifiedQuotes, formatSourceLine } from '../data/quotesData'
+import PageMeta from '../components/PageMeta.jsx'
 
 const CONDITION_UPDATED_AT = '14:20 갱신'
 const TODAY_INDEX = 25
@@ -29,6 +30,10 @@ export default function TodayPage({
 
   return (
     <div className="today-page">
+      <PageMeta
+        title="오늘"
+        description="오늘의 컨디션과 일정, 할 일을 한눈에 살펴보는 신다미의 시선온도 하루 시작 화면입니다."
+      />
       <div className="today-grid">
         <div className="today-left">
           <div className="card">

@@ -1,4 +1,5 @@
 import { dayRecord, recordedDays } from '../data/mockData'
+import PageMeta from '../components/PageMeta.jsx'
 
 const WEEKDAYS = ['월', '화', '수', '목', '금', '토', '일']
 const PREV_MONTH_TAIL = [27, 28, 29, 30, 31]
@@ -40,6 +41,10 @@ export default function RecordsPage({ emotions = [], tasks = [] }) {
 
   return (
     <div className="records-grid">
+      <PageMeta
+        title="나의 흐름"
+        description="반복되는 감정과 필요, 선택의 흐름을 돌아보는 시선온도의 기록 공간입니다."
+      />
       <div className="flow-summary-row">
         <div className="card flow-summary-card">
           <span className="section-title">자주 선택한 감정</span>

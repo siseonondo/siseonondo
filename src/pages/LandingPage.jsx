@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import logo from '../assets/logo-mark.png'
 import AuthMenu from '../components/AuthMenu.jsx'
+import PageMeta from '../components/PageMeta.jsx'
 import { ROUTES } from '../routes.js'
 
 function HeartIcon() {
@@ -57,6 +58,15 @@ function WaveIcon() {
   )
 }
 
+function QuoteIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M7 8c-2 0-3 1.5-3 3.5S5 15 7 15c-.5 2-2 3-4 3.5" />
+      <path d="M16 8c-2 0-3 1.5-3 3.5s1 3.5 3 3.5c-.5 2-2 3-4 3.5" />
+    </svg>
+  )
+}
+
 const MINI_FLOW = [
   { icon: HeartIcon, label: '감정 알아차리기', tone: 'purple' },
   { icon: LeafIcon, label: '필요한 것 살펴보기', tone: 'green' },
@@ -74,6 +84,13 @@ const FEATURE_CARDS = [
     tone: 'purple',
   },
   { title: '나의 흐름', desc: '반복되는 감정과 필요, 선택의 흐름을 돌아봅니다.', to: '/flow', icon: WaveIcon, tone: 'green' },
+  {
+    title: '문장 보관함',
+    desc: '노자 도덕경을 비롯한 문장을 주제별로 찾아보고 저장합니다.',
+    to: '/quotes',
+    icon: QuoteIcon,
+    tone: 'purple',
+  },
 ]
 
 const FLOW_STAGES = [
@@ -91,6 +108,10 @@ export default function LandingPage() {
 
   return (
     <div className="landing">
+      <PageMeta
+        title="신다미의 자기경영 공간 — 도덕경으로 읽는 오늘의 마음"
+        description="시선온도는 신다미가 만든 자기경영 공간입니다. '시선을 켜다'는 ON과 '자신의 길'을 뜻하는 道를 담아, 도덕경 문장과 함께 감정 뒤의 욕구를 살피고 오늘의 선택을 기록합니다."
+      />
       <header className="landing-header">
         <Link to="/" className="landing-brand">
           <img src={logo} alt="생글로리" className="landing-logo" />
@@ -166,7 +187,7 @@ export default function LandingPage() {
         <section className="landing-section">
           <h2>시선의 길을 열다</h2>
           <p className="landing-body">
-            시선온도는 자신을 바라보는 시선을 여는 공간입니다.
+            시선온도는 신다미가 만든, 자신을 바라보는 시선을 여는 공간입니다.
             <br />
             '시선을 켜다'라는 ON과 '자신의 길'을 뜻하는 道를 담았습니다.
           </p>
@@ -240,7 +261,7 @@ export default function LandingPage() {
         </section>
       </main>
 
-      <footer className="landing-footer">시선온도 · 시선의 길을 열다 · siseonondo.kr</footer>
+      <footer className="landing-footer">시선온도 · 시선의 길을 열다 · 만든 사람 신다미 · siseonondo.kr</footer>
     </div>
   )
 }

@@ -298,6 +298,10 @@
   text-align: left;
 }
 
+.landing-feature-grid > *:nth-child(5) {
+  grid-column: 1 / -1;
+}
+
 .landing-feature-card {
   align-items: center;
   text-decoration: none;

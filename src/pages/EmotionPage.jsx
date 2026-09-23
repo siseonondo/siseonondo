@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { emotionOptions, areaOptions, needOptions } from '../data/mockData'
+import PageMeta from '../components/PageMeta.jsx'
 
 export default function EmotionPage({ emotions, onSave, canSave }) {
   const [selectedEmotion, setSelectedEmotion] = useState(emotionOptions[0])
@@ -22,6 +23,10 @@ export default function EmotionPage({ emotions, onSave, canSave }) {
 
   return (
     <div className="emotion-grid">
+      <PageMeta
+        title="마음 기록"
+        description="감정과 그 뒤에 필요했던 것을 기록하는 시선온도의 마음 기록 공간입니다."
+      />
       <div className="today-left">
         <div className="card-row-title">
           <span className="title-serif">오늘 어떤 마음이 지나갔나요</span>

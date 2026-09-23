@@ -8,6 +8,7 @@ import {
   dayRecord,
 } from '../data/mockData'
 import { getTodaySeoulDate } from '../utils/date.js'
+import PageMeta from '../components/PageMeta.jsx'
 
 const VIEWS = [
   { key: 'day', label: '일' },
@@ -256,6 +257,10 @@ export default function CalendarPage() {
 
   return (
     <div className="section">
+      <PageMeta
+        title="캘린더"
+        description="한 달의 기록과 일정을 달력으로 살펴보는 시선온도 캘린더입니다."
+      />
       <div className="calendar-toolbar">
         <div className="calendar-toolbar-left">
           <span className="title-serif">{formatTitle(view, cursor)}</span>

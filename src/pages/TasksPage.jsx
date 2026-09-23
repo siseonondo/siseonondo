@@ -1,4 +1,5 @@
 import { TASK_BUCKETS } from '../data/mockData'
+import PageMeta from '../components/PageMeta.jsx'
 
 function TaskCard({ task, onToggleTask, onSetDate, onNoteChange }) {
   return (
@@ -42,6 +43,7 @@ export default function TasksPage({ tasks, onToggleTask, onSetDate, onNoteChange
 
   return (
     <div className="tasks-grid">
+      <PageMeta title="할 일" description="오늘과 이번 주의 할 일을 관리하는 시선온도 할 일 목록입니다." />
       {columns.map((col) => (
         <div className="task-column" key={col.key}>
           <div className="task-column-head">

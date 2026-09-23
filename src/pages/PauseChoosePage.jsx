@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import PageMeta from '../components/PageMeta.jsx'
 
 const PULL_CHECKLIST = [
   '해야 할 일을 해내고 있지만, 왜 이렇게 바쁜지 모르겠다.',
@@ -79,6 +80,10 @@ export default function PauseChoosePage({ onNavigate }) {
 
   return (
     <div className="pause-page">
+      <PageMeta
+        title="멈춤과 선택 · 자기경영의 흐름"
+        description="나를 끌고 가는 힘을 살펴보고, 正見取意動感億 자기경영의 흐름을 따라 오늘 할 수 있는 것을 선택합니다."
+      />
       <div className="card pause-section">
         <span className="title-serif">나를 끌고 가는 힘</span>
         <p className="pause-lead">
