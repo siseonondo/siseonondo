@@ -3,7 +3,7 @@ import SiteHeader from '../components/SiteHeader.jsx'
 import SiteFooter from '../components/SiteFooter.jsx'
 import PageMeta from '../components/PageMeta.jsx'
 import StructuredData from '../components/StructuredData.jsx'
-import { getBookBySlug } from '../data/booksData.js'
+import { getBookBySlug, formatBookDate } from '../data/booksData.js'
 
 export default function BookDetailPage() {
   const { slug } = useParams()
@@ -55,7 +55,7 @@ export default function BookDetailPage() {
           <h1 className="landing-hero-title book-detail-title">{book.title}</h1>
           {book.subtitle && <p className="landing-hero-tagline book-detail-subtitle">{book.subtitle}</p>}
           <p className="book-detail-meta">
-            {book.author} · {book.publisher} · {book.publishedDate}
+            {book.author} · {book.publisher} · {formatBookDate(book.publishedDate)}
           </p>
           <p className="landing-body">{book.summary}</p>
           {book.description && <p className="landing-body">{book.description}</p>}

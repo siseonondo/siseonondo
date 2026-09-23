@@ -23,3 +23,10 @@ export const books = [
 export function getBookBySlug(slug) {
   return books.find((b) => b.slug === slug) || null
 }
+
+// 화면 표시용 포맷만 바꿀 뿐, book.publishedDate 원본(ISO 형식)은 그대로 둡니다.
+export function formatBookDate(isoDate) {
+  if (!isoDate) return ''
+  const [year, month, day] = isoDate.split('-')
+  return `${Number(year)}년 ${Number(month)}월 ${Number(day)}일`
+}

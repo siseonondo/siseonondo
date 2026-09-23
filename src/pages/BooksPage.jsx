@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import SiteHeader from '../components/SiteHeader.jsx'
 import SiteFooter from '../components/SiteFooter.jsx'
 import PageMeta from '../components/PageMeta.jsx'
-import { books } from '../data/booksData.js'
+import { books, formatBookDate } from '../data/booksData.js'
 
 export default function BooksPage() {
   return (
@@ -32,7 +32,7 @@ export default function BooksPage() {
               <div className="book-card-body">
                 <h2 className="book-card-title">{book.title}</h2>
                 <p className="book-card-meta">
-                  {book.author} · {book.publisher}
+                  {book.author} · {book.publisher} · {formatBookDate(book.publishedDate)}
                 </p>
                 <p className="book-card-summary">{book.summary}</p>
                 <span className="cta-arrow">→</span>

@@ -157,6 +157,10 @@
   white-space: nowrap;
 }
 
+.landing-start-btn-short {
+  display: none;
+}
+
 .landing-start-btn:hover {
   background: var(--accent-strong);
   color: var(--accent-ink);
@@ -789,6 +793,10 @@
   gap: 28px;
   text-align: left;
   align-items: start;
+}
+
+.landing-section-compact-single {
+  grid-template-columns: 1fr;
 }
 
 .landing-compact-block h2 {

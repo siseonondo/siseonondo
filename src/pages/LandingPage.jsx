@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import SiteHeader from '../components/SiteHeader.jsx'
 import SiteFooter from '../components/SiteFooter.jsx'
 import PageMeta from '../components/PageMeta.jsx'
-import { books } from '../data/booksData.js'
+import { books, formatBookDate } from '../data/booksData.js'
 import { programs } from '../data/programsData.js'
 import { writings } from '../data/writingsData.js'
 
@@ -130,7 +130,7 @@ export default function LandingPage() {
               오늘의 나 살펴보기
             </Link>
             <Link to="/about" className="landing-hero-secondary">
-              신다미의 글과 책 보기
+              신다미 알아보기
             </Link>
           </div>
         </section>
@@ -141,10 +141,6 @@ export default function LandingPage() {
           <p className="landing-body">
             신다미는 도덕경을 바탕으로 삶을 바라보고 글을 쓰며, 사람들과 질문을 나누는 철학자이자
             작가입니다.
-          </p>
-          <p className="landing-body">
-            시선온도는 빠르게 답을 얻는 시대에 잠시 멈추어 자신이 무엇을 보고 있는지, 무엇을 선택하려
-            하는지 살펴보기 위해 만든 공간입니다.
           </p>
           <Link to="/about" className="pause-cta">
             신다미 소개 보기 →
@@ -165,7 +161,7 @@ export default function LandingPage() {
               <div className="book-card-body">
                 <h3 className="book-card-title">{firstBook.title}</h3>
                 <p className="book-card-meta">
-                  {firstBook.author} · {firstBook.publisher} · {firstBook.publishedDate}
+                  {firstBook.author} · {firstBook.publisher} · {formatBookDate(firstBook.publishedDate)}
                 </p>
                 <p className="book-card-summary">{firstBook.summary}</p>
               </div>
@@ -232,14 +228,14 @@ export default function LandingPage() {
           </div>
         </section>
 
-        <section className="landing-section landing-section-compact">
-          <div className="landing-compact-block">
-            <h2>시선을 나누는 글</h2>
-            {previewWritings.length === 0 ? (
-              <p className="landing-body-small writing-empty-note">
-                아직 게시된 글이 없습니다. 준비되는 대로 이곳에서 만나보실 수 있습니다.
-              </p>
-            ) : (
+        <section
+          className={`landing-section landing-section-compact${
+            previewWritings.length === 0 ? ' landing-section-compact-single' : ''
+          }`}
+        >
+          {previewWritings.length > 0 && (
+            <div className="landing-compact-block">
+              <h2>시선을 나누는 글</h2>
               <ul className="landing-compact-list">
                 {previewWritings.map((w) => (
                   <li key={w.slug}>
@@ -247,11 +243,11 @@ export default function LandingPage() {
                   </li>
                 ))}
               </ul>
-            )}
-            <Link to="/writings" className="landing-compact-link">
-              글 목록 보기 →
-            </Link>
-          </div>
+              <Link to="/writings" className="landing-compact-link">
+                글 목록 보기 →
+              </Link>
+            </div>
+          )}
 
           <div className="landing-compact-block">
             <h2>생각을 삶에서 나누는 일</h2>

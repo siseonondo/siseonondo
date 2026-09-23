@@ -63,7 +63,8 @@ export default function SiteHeader() {
       <div className="landing-header-actions">
         <AuthMenu />
         <Link to="/today" className="landing-start-btn">
-          시작하기
+          <span className="landing-start-btn-full">기록 시작하기</span>
+          <span className="landing-start-btn-short">기록 시작</span>
         </Link>
         <button
           type="button"
