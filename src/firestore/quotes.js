@@ -1,9 +1,11 @@
 import { useCallback, useEffect, useState } from 'react'
 import { deleteDoc, doc, onSnapshot, serverTimestamp, setDoc, updateDoc, collection } from 'firebase/firestore'
 import { db } from '../firebase.js'
+import { loadGuestState, saveGuestState } from '../utils/guestStorage.js'
 
 export function useQuotes(user) {
-  const [guestSaved, setGuestSaved] = useState({})
+  // 게스트(비로그인) 상태는 이 브라우저의 localStorage에서만 읽고 씁니다 — 서버로 전송되지 않습니다.
+  const [guestSaved, setGuestSavedState] = useState(() => loadGuestState().savedQuotes)
   const [remoteSaved, setRemoteSaved] = useState(null)
 
   useEffect(() => {
@@ -21,6 +23,14 @@ export function useQuotes(user) {
   }, [user])
 
   const saved = user ? remoteSaved ?? {} : guestSaved
+
+  const setGuestSaved = useCallback((updater) => {
+    setGuestSavedState((prev) => {
+      const next = typeof updater === 'function' ? updater(prev) : updater
+      saveGuestState({ savedQuotes: next })
+      return next
+    })
+  }, [])
 
   const toggleSave = useCallback(
     (quoteId) => {
@@ -41,7 +51,7 @@ export function useQuotes(user) {
         })
       }
     },
-    [user, saved]
+    [user, saved, setGuestSaved]
   )
 
   const updateNote = useCallback(
@@ -52,7 +62,7 @@ export function useQuotes(user) {
         setGuestSaved((prev) => ({ ...prev, [quoteId]: { ...prev[quoteId], note } }))
       }
     },
-    [user]
+    [user, setGuestSaved]
   )
 
   return { saved, toggleSave, updateNote }

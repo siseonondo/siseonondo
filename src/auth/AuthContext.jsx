@@ -9,6 +9,7 @@ import {
   updateProfile,
 } from 'firebase/auth'
 import { auth } from '../firebase.js'
+import { AUTH_ENABLED } from '../config/authConfig.js'
 
 const AuthContext = createContext(null)
 
@@ -45,6 +46,12 @@ export function AuthProvider({ children }) {
   const [error, setError] = useState(null)
 
   useEffect(() => {
+    // AUTH_ENABLED=false일 때는 게스트 경험이 Firebase 연결 상태와 무관하게 항상 동작하도록 구독을 시작하지 않습니다.
+    // true로 되돌리면 즉시 원래대로 Firebase 세션을 구독합니다.
+    if (!AUTH_ENABLED) {
+      setLoading(false)
+      return
+    }
     return onAuthStateChanged(auth, (fbUser) => {
       setUser(toPublicUser(fbUser))
       setLoading(false)
@@ -91,8 +98,15 @@ export function AuthProvider({ children }) {
 
   const logout = useCallback(() => signOut(auth), [])
 
+  // AUTH_ENABLED=false일 때는 Firebase 세션이 남아 있어도 앱 전체가 항상 비로그인(게스트) 상태로 동작합니다.
+  // onAuthStateChanged 구독과 로그인/가입/로그아웃 함수는 그대로 살아있어, 값만 true로 바꾸면 즉시 복구됩니다.
+  const exposedUser = AUTH_ENABLED ? user : null
+  const exposedLoading = AUTH_ENABLED ? loading : false
+
   return (
-    <AuthContext.Provider value={{ user, loading, error, login, register, loginWithGoogle, logout }}>
+    <AuthContext.Provider
+      value={{ user: exposedUser, loading: exposedLoading, error, login, register, loginWithGoogle, logout }}
+    >
       {children}
     </AuthContext.Provider>
   )

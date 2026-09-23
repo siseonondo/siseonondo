@@ -9,6 +9,10 @@ import {
 } from '../data/mockData'
 import { getTodaySeoulDate } from '../utils/date.js'
 import PageMeta from '../components/PageMeta.jsx'
+import { DEMO_MODE } from '../config/authConfig.js'
+
+const EMPTY_SET = new Set()
+const EMPTY_WEEK_ROWS = []
 
 const VIEWS = [
   { key: 'day', label: '일' },
@@ -47,6 +51,10 @@ function buildMonthGrid(year, month) {
   const daysInMonth = new Date(year, month + 1, 0).getDate()
   const daysInPrevMonth = new Date(year, month, 0).getDate()
 
+  const eventDays = DEMO_MODE ? monthEventDays : EMPTY_SET
+  const doneDays = DEMO_MODE ? taskDoneDays : EMPTY_SET
+  const moodedDays = DEMO_MODE ? moodDays : EMPTY_SET
+
   const cells = []
   for (let i = startOffset - 1; i >= 0; i -= 1) {
     cells.push({ day: daysInPrevMonth - i, outside: true })
@@ -55,9 +63,9 @@ function buildMonthGrid(year, month) {
     cells.push({
       day,
       outside: false,
-      hasEvent: monthEventDays.has(day),
-      taskDone: taskDoneDays.has(day),
-      hasMood: moodDays.has(day),
+      hasEvent: eventDays.has(day),
+      taskDone: doneDays.has(day),
+      hasMood: moodedDays.has(day),
       today: sameDate(new Date(year, month, day), TODAY),
     })
   }
@@ -70,20 +78,25 @@ function buildMonthGrid(year, month) {
 }
 
 function DayView() {
+  const schedule = DEMO_MODE ? todaySchedule : []
   return (
     <div className="section">
       <div className="section-header">
-        <span className="section-title">일정 · {todaySchedule.length}</span>
+        <span className="section-title">일정 · {schedule.length}</span>
       </div>
       <div className="schedule-list">
-        {todaySchedule.map((s) => (
-          <div className="schedule-row" key={s.id}>
-            <span className={`schedule-time${s.done ? ' muted' : ''}`}>{s.time}</span>
-            <span className={`schedule-title${s.done ? ' done' : ''}`}>{s.title}</span>
-            {s.soon && <span className="badge-soon">곧 시작</span>}
-            {s.place && <span className="schedule-place">{s.place}</span>}
-          </div>
-        ))}
+        {schedule.length === 0 ? (
+          <p className="empty-state-text">아직 등록한 일정이 없습니다.</p>
+        ) : (
+          schedule.map((s) => (
+            <div className="schedule-row" key={s.id}>
+              <span className={`schedule-time${s.done ? ' muted' : ''}`}>{s.time}</span>
+              <span className={`schedule-title${s.done ? ' done' : ''}`}>{s.title}</span>
+              {s.soon && <span className="badge-soon">곧 시작</span>}
+              {s.place && <span className="schedule-place">{s.place}</span>}
+            </div>
+          ))
+        )}
       </div>
     </div>
   )
@@ -100,6 +113,7 @@ function WeekView({ cursor }) {
       weekend: d.getDay() === 0 || d.getDay() === 6,
     }
   })
+  const rows = DEMO_MODE ? weekSchedule.rows : EMPTY_WEEK_ROWS
 
   return (
     <div className="week-table">
@@ -117,16 +131,20 @@ function WeekView({ cursor }) {
         ))}
       </div>
 
-      {weekSchedule.rows.map((row) => (
-        <div className="week-row" key={row.time}>
-          <div className="week-time-label">{row.time}</div>
-          {row.cells.map((cell, i) => (
-            <div className={`week-cell${days[i].active ? ' today-col' : ''}`} key={i}>
-              {cell && <div className={`event-chip${cell.accent ? ' accent' : ''}`}>{cell.title}</div>}
-            </div>
-          ))}
-        </div>
-      ))}
+      {rows.length === 0 ? (
+        <p className="empty-state-text">아직 등록한 일정이 없습니다.</p>
+      ) : (
+        rows.map((row) => (
+          <div className="week-row" key={row.time}>
+            <div className="week-time-label">{row.time}</div>
+            {row.cells.map((cell, i) => (
+              <div className={`week-cell${days[i].active ? ' today-col' : ''}`} key={i}>
+                {cell && <div className={`event-chip${cell.accent ? ' accent' : ''}`}>{cell.title}</div>}
+              </div>
+            ))}
+          </div>
+        ))
+      )}
     </div>
   )
 }
@@ -181,49 +199,55 @@ function DayDetailModal({ day, onClose }) {
           </button>
         </div>
 
-        <div className="day-stat-row">
-          {dayRecord.conditions.map((c) => (
-            <div className="day-stat-card" key={c.time}>
-              <span className="meta-mono">{c.time}</span>
-              <span className="title-serif" style={{ fontSize: 15 }}>
-                {c.label}
-              </span>
+        {DEMO_MODE ? (
+          <>
+            <div className="day-stat-row">
+              {dayRecord.conditions.map((c) => (
+                <div className="day-stat-card" key={c.time}>
+                  <span className="meta-mono">{c.time}</span>
+                  <span className="title-serif" style={{ fontSize: 15 }}>
+                    {c.label}
+                  </span>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
 
-        <div className="section">
-          <span className="section-title">감정 기록</span>
-          {dayRecord.emotions.map((e) => (
-            <div className="emotion-record-card" key={e.id}>
-              <span className={`chip ${e.color}`} style={{ alignSelf: 'flex-start' }}>
-                {e.tag}
-              </span>
-              <div className="emotion-record-body">{e.situation}</div>
+            <div className="section">
+              <span className="section-title">감정 기록</span>
+              {dayRecord.emotions.map((e) => (
+                <div className="emotion-record-card" key={e.id}>
+                  <span className={`chip ${e.color}`} style={{ alignSelf: 'flex-start' }}>
+                    {e.tag}
+                  </span>
+                  <div className="emotion-record-body">{e.situation}</div>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
 
-        <div className="day-detail-two-col">
-          <div className="day-detail-list">
-            <span className="section-title">할 일</span>
-            {dayRecord.tasks.map((t) => (
-              <div className={`day-detail-row${t.done ? ' done' : ''}`} key={t.id}>
-                <span>{t.done ? '✓' : '○'}</span>
-                <span style={{ flex: 1 }}>{t.title}</span>
+            <div className="day-detail-two-col">
+              <div className="day-detail-list">
+                <span className="section-title">할 일</span>
+                {dayRecord.tasks.map((t) => (
+                  <div className={`day-detail-row${t.done ? ' done' : ''}`} key={t.id}>
+                    <span>{t.done ? '✓' : '○'}</span>
+                    <span style={{ flex: 1 }}>{t.title}</span>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-          <div className="day-detail-list">
-            <span className="section-title">일정</span>
-            {dayRecord.schedule.map((s) => (
-              <div className="day-detail-row" key={s.id}>
-                <span className="time">{s.time}</span>
-                <span style={{ flex: 1 }}>{s.title}</span>
+              <div className="day-detail-list">
+                <span className="section-title">일정</span>
+                {dayRecord.schedule.map((s) => (
+                  <div className="day-detail-row" key={s.id}>
+                    <span className="time">{s.time}</span>
+                    <span style={{ flex: 1 }}>{s.title}</span>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-        </div>
+            </div>
+          </>
+        ) : (
+          <p className="empty-state-text">아직 남긴 기록이 없습니다.</p>
+        )}
       </div>
     </div>
   )

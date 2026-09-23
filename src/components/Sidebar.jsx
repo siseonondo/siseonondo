@@ -33,7 +33,7 @@ export default function Sidebar({ condition, open, onClose }) {
         <div className="sidebar-status">
           <span className="sidebar-status-label">오늘의 상태</span>
           <span className="sidebar-status-value">
-            {conditionLabels[condition]} · {condition}
+            {condition ? `${conditionLabels[condition]} · ${condition}` : '아직 선택하지 않음'}
           </span>
           <div className="sidebar-status-bar">
             {[1, 2, 3, 4, 5].map((n) => (

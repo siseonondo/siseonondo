@@ -11,7 +11,8 @@ import {
   setDoc,
 } from 'firebase/firestore'
 import { db } from '../firebase.js'
-import { todayEmotions as guestEmotions } from '../data/mockData'
+import { todayEmotions as seedEmotionsData } from '../data/mockData'
+import { loadGuestState, saveGuestState } from '../utils/guestStorage.js'
 
 const TAG_COLORS = {
   기쁨: 'green',
@@ -28,12 +29,17 @@ function formatTime(ts) {
   return `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`
 }
 
+function nowLabel() {
+  const d = new Date()
+  return `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`
+}
+
 // New accounts start empty; seed the same demo emotion records guests see
 // so the tab isn't blank on first login. Runs once per user (guarded below).
 async function seedEmotions(uid) {
   const now = Date.now()
   await Promise.all(
-    guestEmotions.map((e, i) =>
+    seedEmotionsData.map((e, i) =>
       setDoc(doc(db, 'users', uid, 'emotions', e.id), {
         tag: e.tag,
         situation: e.situation,
@@ -46,7 +52,16 @@ async function seedEmotions(uid) {
   )
 }
 
+let guestEmotionSeq = 0
+function nextGuestEmotionId() {
+  guestEmotionSeq += 1
+  return `guest-emotion-${Date.now()}-${guestEmotionSeq}`
+}
+
 export function useEmotions(user) {
+  // 게스트(비로그인) 상태는 이 브라우저의 localStorage에서만 읽고 씁니다 — 서버로 전송되지 않습니다.
+  // 처음 방문한 브라우저는 예시 기록 없이 빈 목록으로 시작합니다.
+  const [guestEmotions, setGuestEmotionsState] = useState(() => loadGuestState().emotions)
   const [remote, setRemote] = useState(null)
   const seededRef = useRef(false)
 
@@ -79,18 +94,35 @@ export function useEmotions(user) {
 
   const addEmotion = useCallback(
     async (tag, situation, need, intensity, area) => {
-      if (!user) return
-      await addDoc(collection(db, 'users', user.id, 'emotions'), {
-        tag,
-        situation,
-        need,
-        intensity,
-        area,
-        createdAt: serverTimestamp(),
-      })
+      if (user) {
+        await addDoc(collection(db, 'users', user.id, 'emotions'), {
+          tag,
+          situation,
+          need,
+          intensity,
+          area,
+          createdAt: serverTimestamp(),
+        })
+      } else {
+        const entry = {
+          id: nextGuestEmotionId(),
+          tag,
+          situation,
+          need,
+          intensity,
+          area,
+          color: TAG_COLORS[tag] || 'blue',
+          time: nowLabel(),
+        }
+        setGuestEmotionsState((prev) => {
+          const next = [...prev, entry]
+          saveGuestState({ emotions: next })
+          return next
+        })
+      }
     },
     [user]
   )
 
-  return { emotions, addEmotion, canSave: !!user }
+  return { emotions, addEmotion, canSave: true }
 }

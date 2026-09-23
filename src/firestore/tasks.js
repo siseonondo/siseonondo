@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { Timestamp, collection, doc, onSnapshot, orderBy, query, setDoc, updateDoc } from 'firebase/firestore'
 import { db } from '../firebase.js'
 import { initialTasks, bucketForDate, formatDateLabel } from '../data/mockData'
+import { loadGuestState, saveGuestState } from '../utils/guestStorage.js'
 
 // New accounts start empty; seed the same demo tasks guests see so the
 // board isn't blank on first login. Runs once per user (guarded below).
@@ -23,7 +24,9 @@ async function seedTasks(uid) {
 }
 
 export function useTasks(user) {
-  const [guestTasks, setGuestTasks] = useState(initialTasks)
+  // 게스트(비로그인) 상태는 이 브라우저의 localStorage에서만 읽고 씁니다 — 서버로 전송되지 않습니다.
+  // 처음 방문한 브라우저는 예시 할 일 없이 빈 목록으로 시작합니다.
+  const [guestTasks, setGuestTasksState] = useState(() => loadGuestState().tasks)
   const [remoteTasks, setRemoteTasks] = useState(null)
   const seededRef = useRef(false)
 
@@ -46,6 +49,14 @@ export function useTasks(user) {
 
   const tasks = user ? remoteTasks ?? [] : guestTasks
 
+  const setGuestTasks = useCallback((updater) => {
+    setGuestTasksState((prev) => {
+      const next = typeof updater === 'function' ? updater(prev) : updater
+      saveGuestState({ tasks: next })
+      return next
+    })
+  }, [])
+
   const toggleTask = useCallback(
     (id) => {
       if (user) {
@@ -56,7 +67,7 @@ export function useTasks(user) {
         setGuestTasks((prev) => prev.map((t) => (t.id === id ? { ...t, done: !t.done } : t)))
       }
     },
-    [user, remoteTasks]
+    [user, remoteTasks, setGuestTasks]
   )
 
   const setTaskDate = useCallback(
@@ -69,7 +80,7 @@ export function useTasks(user) {
         setGuestTasks((prev) => prev.map((t) => (t.id === id ? { ...t, ...patch } : t)))
       }
     },
-    [user]
+    [user, setGuestTasks]
   )
 
   const updateTaskNote = useCallback(
@@ -80,7 +91,7 @@ export function useTasks(user) {
         setGuestTasks((prev) => prev.map((t) => (t.id === id ? { ...t, note } : t)))
       }
     },
-    [user]
+    [user, setGuestTasks]
   )
 
   return { tasks, toggleTask, setTaskDate, updateTaskNote }

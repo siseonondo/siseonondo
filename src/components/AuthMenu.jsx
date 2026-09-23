@@ -1,8 +1,11 @@
 import { useState } from 'react'
 import { useAuth } from '../auth/AuthContext.jsx'
+import { AUTH_ENABLED } from '../config/authConfig.js'
 
 export default function AuthMenu() {
   const { user, loading, error, login, register, loginWithGoogle, logout } = useAuth()
+
+  if (!AUTH_ENABLED) return null
   const [open, setOpen] = useState(false)
   const [mode, setMode] = useState('login')
   const [email, setEmail] = useState('')
