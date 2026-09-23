@@ -119,103 +119,32 @@ export default function LandingPage() {
       <main className="landing-main">
         <section className="landing-hero">
           <h1 className="landing-hero-title">시선온도</h1>
-          <p className="landing-hero-tagline">
-            자신을 바라보는 시선을 켜고,
+          <p className="landing-hero-intro">
+            철학자·작가 신다미가 도덕경을 바탕으로
             <br />
-            나의 길을 엽니다.
+            삶의 질문과 선택을 나누는 공간
           </p>
-          <p className="landing-hero-desc">
-            감정에 바로 반응하기 전에 잠시 멈춰봅니다.
-            <br />
-            그 감정이 알려주는 마음과 지금 필요한 것을 바라봅니다.
-          </p>
-          <Link to="/today" className="pause-cta landing-hero-cta">
-            오늘의 나 살펴보기
-          </Link>
-        </section>
-
-        <section className="landing-section">
-          <h2>시선의 길을 열다</h2>
-          <p className="landing-body">
-            시선온도는 신다미가 만든, 자신을 바라보는 시선을 여는 공간입니다.
-            <br />
-            '시선을 켜다'라는 ON과 '자신의 길'을 뜻하는 道를 담았습니다.
-          </p>
-          <p className="landing-body">
-            다른 사람의 말과 시선에 바로 반응하기보다, 지금 내 마음에서 무엇이 일어나고 있는지 먼저
-            바라봅니다.
-          </p>
-        </section>
-
-        <section className="landing-section">
-          <h2>감정 뒤에는 욕구가 있습니다</h2>
-          <p className="landing-body">
-            누군가 갑자기 화를 내면 우리는 그 말과 표정에 먼저 반응하기 쉽습니다. 하지만 그 사람이
-            무엇을 원했는지 알게 되면 상황을 다르게 바라볼 수 있습니다.
-          </p>
-          <p className="landing-body">
-            자신의 감정도 마찬가지입니다. 감정을 없애려 하기보다 그 감정이 무엇을 알려주는지
-            살펴보면 지금 나에게 필요한 것을 이해할 수 있습니다.
-          </p>
-          <div className="landing-mini-flow">
-            {MINI_FLOW.map((step, i) => (
-              <span className="landing-mini-flow-step" key={step.label}>
-                {i > 0 && <span className="landing-mini-flow-arrow">→</span>}
-                <span className={`landing-mini-flow-icon tone-${step.tone}`}>
-                  <step.icon />
-                </span>
-                <span className="landing-mini-flow-label">{step.label}</span>
-              </span>
-            ))}
+          <p className="landing-hero-tagline">자신을 바라보는 시선을 켜고, 나의 길을 엽니다.</p>
+          <div className="landing-hero-actions">
+            <Link to="/today" className="pause-cta landing-hero-cta">
+              오늘의 나 살펴보기
+            </Link>
+            <Link to="/about" className="landing-hero-secondary">
+              신다미의 글과 책 보기
+            </Link>
           </div>
-        </section>
-
-        <section className="landing-section">
-          <h2>오늘의 나를 가볍게 살펴봅니다</h2>
-          <div className="landing-feature-grid">
-            {FEATURE_CARDS.map((feature) => (
-              <Link key={feature.title} to={feature.to} className="cta-card landing-feature-card">
-                <span className={`landing-feature-icon tone-${feature.tone}`}>
-                  <feature.icon />
-                </span>
-                <div className="landing-feature-text">
-                  <div className="cta-title">{feature.title}</div>
-                  <div className="cta-sub">{feature.desc}</div>
-                </div>
-                <span className="cta-arrow">→</span>
-              </Link>
-            ))}
-          </div>
-        </section>
-
-        <section className="landing-section">
-          <h2>멈추고, 바라보고, 선택합니다</h2>
-          <div className="pause-flow-grid landing-flow-grid">
-            {FLOW_STAGES.map((stage) => (
-              <div key={stage.hanja} className="pause-flow-card landing-flow-card">
-                <span className="pause-flow-hanja">{stage.hanja}</span>
-                <span className="pause-flow-title">{stage.title}</span>
-              </div>
-            ))}
-          </div>
-          <Link to="/pause-and-choose" className="pause-cta">
-            자기경영의 흐름 살펴보기
-          </Link>
         </section>
 
         <section className="landing-section about-preview-section">
           <img src="/profile-shindami.jpg" alt="신다미 프로필 사진" className="about-photo about-photo-small" />
           <h2>질문을 통해 삶을 바라보는 사람</h2>
           <p className="landing-body">
-            신다미는 도덕경을 바탕으로 삶을 바라보고, 글을 쓰고, 사람들과 질문을 나누는 철학자이자
+            신다미는 도덕경을 바탕으로 삶을 바라보고 글을 쓰며, 사람들과 질문을 나누는 철학자이자
             작가입니다.
           </p>
           <p className="landing-body">
-            빠르게 답을 얻는 시대일수록 잠시 멈추어 자신이 무엇을 보고 있는지, 무엇을 선택하려
-            하는지 살펴보아야 한다고 생각합니다.
-          </p>
-          <p className="landing-body">
-            시선온도는 자신을 바라보는 시선을 켜고, 자신의 길을 찾아가기 위해 만든 공간입니다.
+            시선온도는 빠르게 답을 얻는 시대에 잠시 멈추어 자신이 무엇을 보고 있는지, 무엇을 선택하려
+            하는지 살펴보기 위해 만든 공간입니다.
           </p>
           <Link to="/about" className="pause-cta">
             신다미 소개 보기 →
@@ -248,36 +177,54 @@ export default function LandingPage() {
         )}
 
         <section className="landing-section">
-          <h2>시선을 나누는 글</h2>
-          {previewWritings.length === 0 ? (
-            <p className="landing-body writing-empty-note">
-              아직 게시된 글이 없습니다. 글이 준비되는 대로 이곳에서 만나보실 수 있습니다.
-            </p>
-          ) : (
-            <div className="writing-list">
-              {previewWritings.map((w) => (
-                <Link key={w.slug} to={`/writings/${w.slug}`} className="cta-card writing-card">
-                  <div className="landing-feature-text">
-                    <div className="cta-title">{w.title}</div>
-                    <div className="cta-sub">{w.excerpt}</div>
-                  </div>
-                  <span className="cta-arrow">→</span>
-                </Link>
-              ))}
-            </div>
-          )}
-          <Link to="/writings" className="pause-cta">
-            글 목록 보기 →
+          <h2>시선의 길을 열다</h2>
+          <p className="landing-body">
+            시선온도는 다른 사람의 말과 시선에 바로 반응하기보다, 지금 내 마음에서 무엇이 일어나고
+            있는지 먼저 바라보는 공간입니다.
+          </p>
+          <p className="landing-body">
+            감정을 없애려 하기보다 그 감정이 알려주는 마음과 필요한 것을 살펴보고, 오늘의 선택을
+            정합니다.
+          </p>
+          <div className="landing-mini-flow">
+            {MINI_FLOW.map((step, i) => (
+              <span className="landing-mini-flow-step" key={step.label}>
+                {i > 0 && <span className="landing-mini-flow-arrow">→</span>}
+                <span className={`landing-mini-flow-icon tone-${step.tone}`}>
+                  <step.icon />
+                </span>
+                <span className="landing-mini-flow-label">{step.label}</span>
+              </span>
+            ))}
+          </div>
+        </section>
+
+        <section className="landing-section">
+          <h2>멈추고, 바라보고, 선택합니다</h2>
+          <div className="pause-flow-grid landing-flow-grid">
+            {FLOW_STAGES.map((stage) => (
+              <div key={stage.hanja} className="pause-flow-card landing-flow-card">
+                <span className="pause-flow-hanja">{stage.hanja}</span>
+                <span className="pause-flow-title">{stage.title}</span>
+              </div>
+            ))}
+          </div>
+          <Link to="/pause-and-choose" className="pause-cta">
+            자기경영의 흐름 살펴보기
           </Link>
         </section>
 
         <section className="landing-section">
-          <h2>생각을 삶에서 나누는 일</h2>
-          <div className="program-list-section program-list-preview">
-            {programs.map((program) => (
-              <Link key={program.slug} to={`/programs/${program.slug}`} className="cta-card program-card">
+          <h2>오늘의 나를 살펴보는 도구</h2>
+          <div className="landing-feature-grid">
+            {FEATURE_CARDS.map((feature) => (
+              <Link key={feature.title} to={feature.to} className="cta-card landing-feature-card">
+                <span className={`landing-feature-icon tone-${feature.tone}`}>
+                  <feature.icon />
+                </span>
                 <div className="landing-feature-text">
-                  <div className="cta-title">{program.title}</div>
+                  <div className="cta-title">{feature.title}</div>
+                  <div className="cta-sub">{feature.desc}</div>
                 </div>
                 <span className="cta-arrow">→</span>
               </Link>
@@ -285,11 +232,40 @@ export default function LandingPage() {
           </div>
         </section>
 
-        <section className="landing-section">
-          <p className="landing-body">생각을 읽는 데서 멈추지 않고, 오늘의 나를 직접 살펴봅니다.</p>
-          <Link to="/today" className="pause-cta">
-            오늘의 나 살펴보기 →
-          </Link>
+        <section className="landing-section landing-section-compact">
+          <div className="landing-compact-block">
+            <h2>시선을 나누는 글</h2>
+            {previewWritings.length === 0 ? (
+              <p className="landing-body-small writing-empty-note">
+                아직 게시된 글이 없습니다. 준비되는 대로 이곳에서 만나보실 수 있습니다.
+              </p>
+            ) : (
+              <ul className="landing-compact-list">
+                {previewWritings.map((w) => (
+                  <li key={w.slug}>
+                    <Link to={`/writings/${w.slug}`}>{w.title}</Link>
+                  </li>
+                ))}
+              </ul>
+            )}
+            <Link to="/writings" className="landing-compact-link">
+              글 목록 보기 →
+            </Link>
+          </div>
+
+          <div className="landing-compact-block">
+            <h2>생각을 삶에서 나누는 일</h2>
+            <ul className="landing-compact-list landing-compact-programs">
+              {programs.map((program) => (
+                <li key={program.slug}>
+                  <Link to={`/programs/${program.slug}`}>{program.title}</Link>
+                </li>
+              ))}
+            </ul>
+            <Link to="/programs" className="landing-compact-link">
+              함께하는 일 보기 →
+            </Link>
+          </div>
         </section>
       </main>
 
