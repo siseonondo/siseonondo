@@ -3,6 +3,7 @@ import SiteHeader from '../components/SiteHeader.jsx'
 import SiteFooter from '../components/SiteFooter.jsx'
 import PageMeta from '../components/PageMeta.jsx'
 import StructuredData from '../components/StructuredData.jsx'
+import SelfManagementProgram from './SelfManagementProgram.jsx'
 import { getProgramBySlug } from '../data/programsData.js'
 
 export default function ProgramDetailPage() {
@@ -33,27 +34,31 @@ export default function ProgramDetailPage() {
       <SiteHeader />
 
       <main className="landing-main">
-        <section className="landing-section">
-          <h1 className="landing-hero-title book-detail-title">{program.title}</h1>
-          <p className="landing-body">{program.summary || '소개 문구는 준비 중입니다.'}</p>
+        {slug === 'self-management-program' ? (
+          <SelfManagementProgram program={program} />
+        ) : (
+          <section className="landing-section">
+            <h1 className="landing-hero-title book-detail-title">{program.title}</h1>
+            <p className="landing-body">{program.summary || '소개 문구는 준비 중입니다.'}</p>
 
-          <div className="program-detail-meta">
-            <p className="landing-body">일정: {program.schedule || '아직 정해지지 않았습니다.'}</p>
-            <p className="landing-body">장소: {program.location || '아직 정해지지 않았습니다.'}</p>
-          </div>
+            <div className="program-detail-meta">
+              <p className="landing-body">일정: {program.schedule || '아직 정해지지 않았습니다.'}</p>
+              <p className="landing-body">장소: {program.location || '아직 정해지지 않았습니다.'}</p>
+            </div>
 
-          {program.applyLink ? (
-            <a href={program.applyLink} target="_blank" rel="noopener noreferrer" className="pause-cta">
-              신청하기 →
-            </a>
-          ) : (
-            <p className="landing-body book-purchase-pending">신청 링크는 준비되는 대로 안내합니다.</p>
-          )}
+            {program.applyLink ? (
+              <a href={program.applyLink} target="_blank" rel="noopener noreferrer" className="pause-cta">
+                신청하기 →
+              </a>
+            ) : (
+              <p className="landing-body book-purchase-pending">신청 링크는 준비되는 대로 안내합니다.</p>
+            )}
 
-          <Link to="/programs" className="pause-cta">
-            함께하는 일 전체 보기 →
-          </Link>
-        </section>
+            <Link to="/programs" className="pause-cta">
+              함께하는 일 전체 보기 →
+            </Link>
+          </section>
+        )}
       </main>
 
       <SiteFooter />

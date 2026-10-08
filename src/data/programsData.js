@@ -3,7 +3,7 @@
 export const programs = [
   { slug: 'doduckyung-humanities', title: '도덕경 인문학', summary: null, schedule: null, location: null, applyLink: null },
   { slug: 'art-salon', title: '아트살롱', summary: null, schedule: null, location: null, applyLink: null },
-  { slug: 'self-management-program', title: '자기경영 프로그램', summary: null, schedule: null, location: null, applyLink: null },
+  { slug: 'self-management-program', title: '자기경영 프로그램', summary: '더 잘하기 위한 관리가 아니라, 지금의 나를 보고 내 뜻으로 선택하기 위한 시간입니다.', schedule: null, location: null, applyLink: null },
   { slug: 'genai-literacy', title: '생성형 AI 리터러시 강의', summary: null, schedule: null, location: null, applyLink: null },
   { slug: 'talks', title: '강연과 대화', summary: null, schedule: null, location: null, applyLink: null },
 ]
