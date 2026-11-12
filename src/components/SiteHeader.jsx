@@ -22,15 +22,21 @@ export default function SiteHeader() {
       </Link>
 
       <nav className="landing-nav">
-        {SITE_NAV.map((item) => (
-          <Link
-            key={item.key}
-            to={item.path}
-            className={`landing-nav-link${location.pathname === item.path ? ' active' : ''}`}
-          >
-            {item.label}
-          </Link>
-        ))}
+        {SITE_NAV.map((item) =>
+          item.external ? (
+            <a key={item.key} href={item.path} className="landing-nav-link">
+              {item.label}
+            </a>
+          ) : (
+            <Link
+              key={item.key}
+              to={item.path}
+              className={`landing-nav-link${location.pathname === item.path ? ' active' : ''}`}
+            >
+              {item.label}
+            </Link>
+          ),
+        )}
 
         <div className="landing-nav-dropdown">
           <button
@@ -83,16 +89,22 @@ export default function SiteHeader() {
         <>
           <div className="landing-nav-overlay" onClick={() => setNavOpen(false)} />
           <nav className="landing-nav-mobile">
-            {SITE_NAV.map((item) => (
-              <Link
-                key={item.key}
-                to={item.path}
-                className="landing-nav-mobile-link"
-                onClick={() => setNavOpen(false)}
-              >
-                {item.label}
-              </Link>
-            ))}
+            {SITE_NAV.map((item) =>
+              item.external ? (
+                <a key={item.key} href={item.path} className="landing-nav-mobile-link">
+                  {item.label}
+                </a>
+              ) : (
+                <Link
+                  key={item.key}
+                  to={item.path}
+                  className="landing-nav-mobile-link"
+                  onClick={() => setNavOpen(false)}
+                >
+                  {item.label}
+                </Link>
+              ),
+            )}
             <div className="landing-nav-mobile-group-label">{MY_RECORD_NAV.label}</div>
             {MY_RECORD_NAV.items.map((item) => (
               <Link
