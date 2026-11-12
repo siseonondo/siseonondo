@@ -1,3 +1,4 @@
 {
+  "redirects": [{ "source": "/compass", "destination": "/compass/", "permanent": false }],
   "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
 }

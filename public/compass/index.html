@@ -1,0 +1,451 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>나침반</title>
+<link rel="stylesheet" href="css/app.css">
+<link rel="stylesheet" href="css/features.css">
+</head>
+<body>
+<div class="wrap">
+  <h1>나침반</h1>
+  <div class="progress"><i id="bar"></i></div>
+  <div class="step" id="stepText"></div>
+
+  <!-- 랜딩 -->
+  <section class="screen" id="s0">
+    <div class="topbar">
+      <div class="logo">
+        <svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="26" r="16"/><path d="M24 12v3M24 37v3M10 26h3M35 26h3"/><path d="M29.5 20.5l-3 8-8 3 3-8z"/><path d="M18 6l1.5 3M24 4v3M30 6l-1.5 3"/></svg>
+        <span>나침반</span>
+      </div>
+      <button class="btn small startBtn">시작하기 ›</button>
+    </div>
+
+    <div class="myRec" id="myRec" style="display:none">
+      <h3 class="myT">내 기록</h3>
+      <div class="dueCard" id="dueCard" style="display:none"></div>
+      <div class="recentCard" id="recentCard" style="display:none"></div>
+      <button class="btn ghost" id="viewHist" type="button">지난 기록 보기</button>
+    </div>
+
+    <div class="hero">
+      <div>
+        <h2 class="big">AI의 답보다,<br>나의 선택</h2>
+        <div class="uline"></div>
+        <p class="lead">내 마음을 살피고,<br>나의 기준으로 결정하는<br>자기경영 도구</p>
+        <div id="draftBox" style="display:none;margin-bottom:14px">
+          <p style="margin:0 0 8px;color:var(--btn)">작성 중인 기록이 있어요.</p>
+          <button class="btn" id="resumeBtn">이어서 쓰기 ›</button>
+        </div>
+        <button class="btn startBtn">지금 시작하기 ›</button>
+      </div>
+      <div class="phoneWrap" aria-hidden="true">
+      <svg class="spark" viewBox="0 0 44 36" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 30l6-10M20 14l3-11M34 22l8-9"/></svg>
+      <div class="phone">
+        <div class="ph-name">나침반</div>
+        <div class="ph-bar"><i></i></div>
+        <div class="ph-q">오늘 내 기분은?</div>
+        <div class="ph-chips"><span>불안해요</span><span>조급해요</span><span class="on">막막해요</span><span>설레요</span><span>차분해요</span></div>
+        <div class="ph-box">지금 이 기분이 나의 선택에 어떤 영향을 주고 있을까요?</div>
+        <div class="ph-next">다음 ›</div>
+      </div>
+      <svg class="leaf" viewBox="0 0 54 90" fill="currentColor"><path d="M27 88C27 60 29 36 38 8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><ellipse cx="38" cy="14" rx="5" ry="10" transform="rotate(20 38 14)"/><ellipse cx="22" cy="30" rx="5" ry="11" transform="rotate(-35 22 30)"/><ellipse cx="42" cy="38" rx="5" ry="11" transform="rotate(35 42 38)"/><ellipse cx="20" cy="54" rx="5" ry="11" transform="rotate(-40 20 54)"/><ellipse cx="39" cy="62" rx="5" ry="11" transform="rotate(40 39 62)"/></svg>
+      </div>
+    </div>
+    <div class="hills" aria-hidden="true"></div>
+
+    <h3 class="sec">나침반이 하는 일</h3>
+    <div class="feats">
+      <div class="feat c1">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg></div>
+        <div class="ft"><b>마음을 살피고</b><p>지금 내 마음이 어떤 상태인지 알아차려요.</p></div>
+      </div>
+      <div class="feat c2">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/><path d="M8.5 10.5h.01M12 10.5h.01M15.5 10.5h.01"/></svg></div>
+        <div class="ft"><b>AI의 답을 검토하고</b><p>AI의 제안을 내 상황과 기준에 맞게 살펴봐요.</p></div>
+      </div>
+      <div class="feat c3">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 21V4M6 5h12l-2.5 4L18 13H6"/></svg></div>
+        <div class="ft"><b>나의 선택을 기록해요</b><p>내가 선택한 결과와 배운 점을 남기고 돌아봐요.</p></div>
+      </div>
+    </div>
+
+    <h3 class="sec">이런 분께 추천해요</h3>
+    <div class="recs">
+      <div class="recItem"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><p>중요한 결정을 앞두고 생각이 복잡할 때</p></div>
+      <div class="recItem"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><p>내가 무엇을 중요하게 생각하는지 알고 싶을 때</p></div>
+      <div class="recItem"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><p>한 번의 선택도 더 의미 있게 돌아보고 싶을 때</p></div>
+    </div>
+
+    <div class="closing">
+      <p class="tag2">정답보다,<br>나에게 맞는 방향을 찾는 여정</p>
+      <div class="uline" style="margin:0 auto;width:60%"></div>
+    </div>
+  </section>
+
+  <!-- 화면 1 -->
+  <section class="screen" id="s1">
+    <div class="cols">
+      <div>
+        <h2>오늘 내 기분은?</h2>
+        <div class="chips" id="moods"></div>
+        <div id="effectBox" style="display:none">
+          <label for="effect">지금 이 기분이 내 선택에 어떤 영향을 주고 있을까? (적지 않아도 괜찮아요)</label>
+          <input type="text" id="effect" maxlength="100">
+        </div>
+      </div>
+      <div>
+        <div class="result empty" id="r1">기분을 하나 골라 주세요.</div>
+        <div class="actions"><button class="btn ghost" id="p1">이전</button> <button class="btn" id="n1" disabled>다음</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 화면 2 -->
+  <section class="screen" id="s2">
+    <div class="cols">
+      <div>
+        <h2>가장 큰 이슈는?</h2>
+        <label for="issue">요즘 가장 고민되는 일을 짧게 적어 주세요.</label>
+        <input type="text" id="issue" maxlength="100">
+        <div class="chips" id="issues"></div>
+        <div id="critBox" style="display:none">
+          <label for="crit">이 문제에서 내가 가장 중요하게 생각하는 것은 무엇일까?</label>
+          <input type="text" id="crit" maxlength="100">
+          <p id="critHint" style="display:none"></p>
+        </div>
+      </div>
+      <div>
+        <div class="result empty" id="r2">이슈를 적고, 종류를 골라 주세요.</div>
+        <div class="actions"><button class="btn ghost" id="p2">이전</button> <button class="btn" id="n2" disabled>다음</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 화면 3 -->
+  <section class="screen" id="s3">
+    <div class="cols">
+      <div>
+        <h2>내일의 선택</h2>
+        <div class="summary" id="sum"></div>
+        <label for="ai">AI가 준 답을 붙여 넣어 주세요. (선택 · AI를 쓰지 않았다면 비워 두세요)</label>
+        <textarea id="ai"></textarea>
+        <div id="splitBox" style="display:none">
+          <button class="btn ghost" id="splitToggle" type="button" style="margin:0 0 12px"></button>
+          <div id="splitWrap" style="display:none">
+            <p class="sub">내 고민에 맞는 문장을 체크해 보세요</p>
+            <div id="split"></div>
+          </div>
+        </div>
+        <div id="judgeBox" style="display:none">
+        <p class="sub">이 답이 내 고민에 맞나?</p>
+        <div id="judges"></div>
+        <div class="result empty" id="r3">선택지를 하나 골라 주세요.</div>
+        </div>
+        <button class="btn ghost" id="moneyToggle" type="button" style="margin:0 0 12px"></button>
+        <div id="moneyWrap" style="display:none">
+          <p class="sub">돈이 걸린 선택이라면 확인해 보세요</p>
+          <div id="checks"></div>
+          <div class="result warn" id="warn" style="display:none">아직 정하지 않은 게 있어요. 확인하고 고르는 걸 권해요.</div>
+        </div>
+        <div class="pickBox">
+        <label for="pick">AI의 답을 참고한 후, 내가 선택한 것은 무엇인가?</label>
+        <textarea id="pick"></textarea>
+        <label for="why">그렇게 선택한 이유는 무엇인가? (적지 않아도 괜찮아요)</label>
+        <textarea id="why" style="min-height:80px"></textarea>
+        <label>언제 다시 돌아볼까요?</label>
+        <div class="chips" id="reviews"></div>
+        </div>
+        <div id="linkBox" style="display:none">
+          <button class="btn ghost" id="linkToggle" type="button" style="margin:0 0 12px"></button>
+          <div id="linkWrap" style="display:none">
+            <p class="sub">이 선택과 이어진 내 가치</p>
+            <div class="chips" id="linkVals"></div>
+            <p class="sub">이 선택에서 발휘한 나의 강점</p>
+            <div class="chips" id="linkStrs"></div>
+          </div>
+        </div>
+        <div class="actions"><button class="btn ghost" id="p3">이전</button> <button class="btn" id="save" disabled>저장</button><button class="btn" id="newRec" style="display:none">새 기록 시작</button></div>
+        <div class="result" id="saveMsg" style="display:none;margin-top:12px"></div>
+        <button class="btn ghost" id="planFromRec" type="button" style="display:none;margin-top:12px">작은 실행 계획 세우기 ›</button>
+      </div>
+      <div>
+        <h2>지난 기록</h2>
+        <p>지난 기록은 전용 화면에서 볼 수 있어요.</p>
+        <button class="btn ghost" id="goHist" type="button">지난 기록 보기</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 개인 홈 (재방문) -->
+  <section class="screen" id="sH">
+    <header class="hhead">
+      <div class="hbrand"><svg viewBox="0 0 48 48" width="34" height="34" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="26" r="16"/><path d="M24 12v3M24 37v3M10 26h3M35 26h3"/><path d="M29.5 20.5l-3 8-8 3 3-8z"/></svg><span>나침반</span></div>
+      <div class="hright">
+        <span class="hdate" id="hDate"></span>
+        <a class="iconbtn" href="#/settings" aria-label="설정"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></a>
+      </div>
+    </header>
+
+    <div class="card" id="hDraft" style="display:none">
+      <h3>작성 중인 기록이 있어요</h3>
+      <p class="hint2">적던 곳에서 이어서 쓸 수 있어요.</p>
+      <button class="btn" id="hResume" type="button">이어서 쓰기 ›</button>
+    </div>
+
+    <div class="card" id="hMood">
+      <h3>오늘 내 기분은?</h3>
+      <div class="chips" id="hMoodChips" style="margin-bottom:8px"></div>
+      <p class="hint2" id="hMoodNote"></p>
+    </div>
+
+    <div class="card" id="hQ">
+      <h3>오늘의 질문</h3>
+      <p class="qtext" id="hQText"></p>
+      <textarea id="hQAns" aria-label="오늘의 질문에 대한 짧은 답" style="min-height:84px;margin-bottom:8px"></textarea>
+      <div class="qrow">
+        <button class="btn ghost" id="hQOther" type="button">다른 질문</button>
+        <button class="btn ghost" id="hQSkip" type="button">건너뛰기</button>
+      </div>
+      <p class="hint2" id="hQState" aria-live="polite"></p>
+    </div>
+
+    <div class="card" id="hTodo" style="display:none"></div>
+
+    <div class="card" id="hDue"></div>
+
+    <button class="btn startBtn wideBtn" id="hStart" type="button">오늘의 기록 시작하기 ›</button>
+
+    <h3 class="hsec">바로가기</h3>
+    <div class="hcards">
+      <a class="hcard" href="#/values"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg><b>나의 기준</b><span>가치와 강점</span></a>
+      <a class="hcard" href="#/records"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg><b>기록 보관함</b><span>달력과 지난 기록</span></a>
+      <a class="hcard" href="#/choice"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg><b>선택의 나침반</b><span>기록하고 선택하기</span></a>
+    </div>
+  </section>
+
+  <!-- 기록 (달력 / 목록 / 질문) -->
+  <section class="screen" id="sR">
+    <h2 class="pageT">기록</h2>
+    <div class="seg" role="tablist" aria-label="기록 보기">
+      <a href="#/records" data-sub="cal" role="tab">달력</a>
+      <a href="#/records/list" data-sub="list" role="tab">보관함</a>
+      <a href="#/records/questions" data-sub="q" role="tab">질문</a>
+    </div>
+    <div class="subpane" id="rCal"></div>
+    <div class="subpane" id="rList">
+      <div class="card archbar" id="archBar">
+        <label for="archQ">기록 검색</label>
+        <input type="text" id="archQ" maxlength="40">
+        <div class="chips" id="archTypes" style="margin-bottom:8px"></div>
+        <button type="button" class="btn ghost" id="archMore" aria-expanded="false" style="margin:0 8px 0 0">필터 더 보기</button>
+        <button type="button" class="btn ghost" id="archClear" style="display:none;margin:0">필터 지우기</button>
+        <div id="archExtra" style="display:none;margin-top:12px">
+          <p class="sub">감정</p><div class="chips" id="archMoods"></div>
+          <div id="archValsBox"><p class="sub">이어진 가치</p><div class="chips" id="archVals"></div></div>
+          <p class="sub">기간</p><div class="chips" id="archRange" style="margin-bottom:8px"></div>
+          <div id="archDates" style="display:none"><label for="archFrom">부터</label><input type="date" id="archFrom"><label for="archTo">까지</label><input type="date" id="archTo"></div>
+          <div class="chips" style="margin-bottom:0"><button type="button" class="chip" id="archFav" aria-pressed="false">★ 즐겨찾기만</button></div>
+        </div>
+      </div>
+      <div id="histSlot"><div id="history"></div></div>
+    </div>
+    <div class="subpane" id="rQ"></div>
+  </section>
+
+  <!-- 선택 -->
+  <section class="screen" id="sC">
+    <h2 class="pageT">선택의 나침반</h2>
+    <p class="hint2" style="margin-bottom:14px">고민이 생겼을 때, 내 마음과 기준을 살펴본 뒤 스스로 선택하도록 도와요.</p>
+    <div class="card">
+      <h3>오늘의 기록</h3>
+      <p>기분, 고민, 나의 기준, AI의 답 검토, 내가 선택한 것 순서로 정리해요.</p>
+      <button class="btn startBtn" type="button">오늘의 기록 시작하기 ›</button>
+    </div>
+    <div class="card">
+      <h3>생각 분별 노트</h3>
+      <p>일어난 일을 사실, 해석, 감정으로 나눠 적어 봐요. AI 없이 쓸 수 있어요.</p>
+      <a class="btn ghost linkbtn" href="#/notes">노트 쓰기</a>
+    </div>
+    <div class="card">
+      <h3>선택 비교</h3>
+      <p>선택지를 나란히 놓고 살펴봐요. 점수로 정하지 않고, 중요도와 최종 선택은 내가 정해요.</p>
+      <a class="btn ghost linkbtn" href="#/compare">비교하러 가기</a>
+    </div>
+    <div class="card">
+      <h3>결정 유예함</h3>
+      <p>당장 정하지 않아도 되는 고민을 보관해 둬요. 정하지 않는 것도 하나의 선택이에요.</p>
+      <a class="btn ghost linkbtn" href="#/defer">유예함 열기</a>
+    </div>
+    <div class="card">
+      <h3>작은 실행 계획</h3>
+      <p>선택한 것을 작은 첫 행동으로 이어 봐요.</p>
+      <a class="btn ghost linkbtn" href="#/plans">계획 보기</a>
+    </div>
+    <div class="card">
+      <h3>지난 선택 돌아보기</h3>
+      <p id="cDueText"></p>
+      <a class="btn ghost linkbtn" href="#/records/list">지난 기록 보기</a>
+    </div>
+  </section>
+
+  <!-- 나의 변화 -->
+  <section class="screen" id="sX">
+    <h2 class="pageT">나의 변화</h2>
+    <div class="subpane" id="xHub">
+      <p class="hint2" style="margin-bottom:14px">쌓인 기록을 돌아보며, 달라진 생각을 내 말로 정리하는 곳이에요.</p>
+      <div class="card">
+        <h3>주간·월간 회고</h3>
+        <p>한 주나 한 달의 기록을 모아 보고, 달라진 생각을 직접 적어 둬요.</p>
+        <a class="btn linkbtn" href="#/change/reviews">회고 쓰기 ›</a>
+      </div>
+      <div class="card">
+        <h3>변화 타임라인</h3>
+        <p>마음에 걸리는 선택과 비슷한 과거 기록을 시간순으로 놓고, 지금의 생각을 적어 봐요.</p>
+        <a class="btn linkbtn" href="#/change/timeline">타임라인 만들기 ›</a>
+      </div>
+      <div class="card">
+        <h3>자기이해 대시보드</h3>
+        <p>감정, 고민 유형, 가치, 회고 기록을 숫자와 막대로 한눈에 봐요.</p>
+        <a class="btn linkbtn" href="#/change/dash">대시보드 보기 ›</a>
+      </div>
+      <div class="card">
+        <h3>자기경영 리포트</h3>
+        <p>기간을 골라 기록을 한 장의 글로 모아, 복사하거나 파일로 저장해요.</p>
+        <a class="btn linkbtn" href="#/change/report">리포트 만들기 ›</a>
+      </div>
+      <div id="xNext"></div>
+      <div id="xSugg"></div>
+      <p class="hint2" id="xInfo"></p>
+    </div>
+    <div class="subpane" id="xRevList"></div>
+    <div class="subpane" id="xRevEdit"></div>
+    <div class="subpane" id="xTlList"></div>
+    <div class="subpane" id="xTlEdit"></div>
+    <div class="subpane" id="xDash"></div>
+    <div class="subpane" id="xReport"></div>
+  </section>
+
+  <!-- 나의 기준 (가치 · 강점) -->
+  <section class="screen" id="sV">
+    <a class="backlink" href="#/home">‹ 홈</a>
+    <h2 class="pageT">나의 기준</h2>
+    <div class="seg two" role="tablist" aria-label="나의 기준 보기">
+      <a href="#/values" data-sub="values" role="tab">가치</a>
+      <a href="#/values/strengths" data-sub="str" role="tab">강점</a>
+    </div>
+    <div class="subpane" id="vVals"></div>
+    <div class="subpane" id="vStr"></div>
+    <div class="subpane" id="vStrEdit"></div>
+  </section>
+
+  <!-- 생각 분별 노트 -->
+  <section class="screen" id="sN">
+    <a class="backlink" href="#/choice">‹ 선택</a>
+    <h2 class="pageT">생각 분별 노트</h2>
+    <div class="subpane" id="nList"></div>
+    <div class="subpane" id="nEdit"></div>
+    <div class="subpane" id="nRes"></div>
+  </section>
+
+  <!-- 선택 비교 -->
+  <section class="screen" id="sK">
+    <a class="backlink" href="#/choice">‹ 선택</a>
+    <h2 class="pageT">선택 비교</h2>
+    <div class="subpane" id="kList"></div>
+    <div class="subpane" id="kEdit"></div>
+    <div class="subpane" id="kRes"></div>
+  </section>
+
+  <!-- 결정 유예함 -->
+  <section class="screen" id="sD">
+    <a class="backlink" href="#/choice">‹ 선택</a>
+    <h2 class="pageT">결정 유예함</h2>
+    <div class="subpane" id="dList"></div>
+    <div class="subpane" id="dEdit"></div>
+  </section>
+
+  <!-- 작은 실행 계획 -->
+  <section class="screen" id="sP">
+    <a class="backlink" href="#/choice">‹ 선택</a>
+    <h2 class="pageT">작은 실행 계획</h2>
+    <div class="subpane" id="pList"></div>
+    <div class="subpane" id="pEdit"></div>
+  </section>
+
+  <!-- 설정 -->
+  <section class="screen" id="sS">
+    <a class="backlink" href="#/home">‹ 홈</a>
+    <h2 class="pageT">설정</h2>
+    <div class="card">
+      <h3>나침반 소개</h3>
+      <p>처음 화면에서 보여 드리는 소개를 다시 볼 수 있어요.</p>
+      <a class="btn ghost linkbtn" href="#/landing">소개 보기</a>
+    </div>
+    <div class="card">
+      <h3>내 데이터</h3>
+      <p id="sInfo"></p>
+      <p class="hint2">기록은 이 기기와 브라우저에만 저장되고, 어디로도 전송되지 않아요. 백업은 [기록 &gt; 목록] 위쪽에서 받을 수 있어요.</p>
+      <p id="sBackup"></p>
+      <button class="btn dangerbtn" id="wipeBtn" type="button">이 기기의 모든 기록 지우기</button>
+      <p class="hint2" id="wipeMsg" aria-live="polite"></p>
+    </div>
+    <div class="card">
+      <h3>다른 기기로 옮기기</h3>
+      <p class="hint2">나침반은 기록을 서버에 올리지 않아요. 백업 파일이나 백업 코드로 직접 옮겨요.</p>
+      <ol class="moveSteps">
+        <li>지금 쓰는 기기에서 [백업 파일 저장] 또는 [백업 코드 복사]를 눌러요.</li>
+        <li>파일은 메일이나 메신저로 나에게 보내고, 코드는 메모 앱에 붙여 두세요.</li>
+        <li>옮겨 갈 기기에서 나침반을 열고 [기록 &gt; 보관함]의 [백업 불러오기]에 파일을 고르거나 코드를 붙여 넣어요.</li>
+      </ol>
+      <p class="hint2">불러오면 그 기기의 기록은 지워지지 않고, 없는 기록만 더해져요.</p>
+      <button class="btn" id="bkFile2" type="button">백업 파일 저장</button>
+      <button class="btn ghost" id="bkCode2" type="button" data-label="백업 코드 복사">백업 코드 복사</button>
+      <a class="btn ghost linkbtn" href="#/records/list">백업 불러오기로 가기</a>
+    </div>
+  </section>
+</div>
+
+<nav class="tabbar" id="tabbar" aria-label="주요 메뉴" style="display:none">
+  <div class="tabinner">
+    <a href="#/home" data-tab="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7v8.5a1.5 1.5 0 0 1-1.5 1.5H5.5A1.5 1.5 0 0 1 4 19.5z"/><path d="M9.5 21v-6h5v6"/></svg><span>홈</span></a>
+    <a href="#/records" data-tab="records"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg><span>기록</span></a>
+    <a href="#/choice" data-tab="choice"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg><span>선택</span></a>
+    <a href="#/change" data-tab="change"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18c4 0 4-6 8-6s4-6 8-6"/><circle cx="4" cy="18" r="1.2"/><circle cx="20" cy="6" r="1.2"/></svg><span>나의 변화</span></a>
+  </div>
+</nav>
+
+<div class="dlgBack" id="draftDlg" style="display:none">
+  <div class="dlg" role="dialog" aria-modal="true" aria-labelledby="dlgTitle">
+    <p class="dlgT" id="dlgTitle">작성 중인 기록이 있어요.</p>
+    <p class="dlgP">이어서 쓸까요, 새로 시작할까요?</p>
+    <button class="btn" id="dlgResume" type="button">이어서 작성하기</button>
+    <button class="btn ghost" id="dlgNew" type="button">새로 시작하기</button>
+    <button class="btn ghost" id="dlgCancel" type="button">취소</button>
+  </div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/questions.js"></script>
+<script src="js/calendar.js"></script>
+<script src="js/home.js"></script>
+<script src="js/values.js"></script>
+<script src="js/notes.js"></script>
+<script src="js/compare.js"></script>
+<script src="js/defer.js"></script>
+<script src="js/plans.js"></script>
+<script src="js/archive.js"></script>
+<script src="js/reviews.js"></script>
+<script src="js/suggest.js"></script>
+<script src="js/timeline.js"></script>
+<script src="js/dash.js"></script>
+<script src="js/report.js"></script>
+<script src="js/views.js"></script>
+<script src="js/router.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

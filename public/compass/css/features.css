@@ -1,0 +1,187 @@
+/* 고도화 1차: 하단 내비, 개인 홈, 기록(달력·목록·질문), 선택, 설정 */
+
+/* 하단 내비게이션 */
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--bg);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
+.tabinner{max-width:880px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr)}
+.tabbar a{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:60px;color:#7a7066;text-decoration:none;font-size:12.5px}
+.tabbar a svg{width:24px;height:24px}
+.tabbar a.on{color:var(--btn);font-weight:700}
+.tabbar a.on::before{content:"";position:absolute;top:0;left:26%;right:26%;height:3px;border-radius:0 0 3px 3px;background:var(--btn)}
+.wrap.hasnav{padding-bottom:96px}
+
+/* 공통 */
+.card{border:1px solid var(--line);border-radius:16px;background:#fff;padding:14px 16px;margin-bottom:12px}
+.card h3{margin:0 0 8px;font-size:17px;color:var(--btn)}
+.card p{margin:0 0 10px;word-break:break-word}
+.hint2{font-size:14px;color:#7a7066;line-height:1.5;margin:0 0 10px}
+.pageT{font-size:22px;margin:0 0 16px}
+.wideBtn{width:100%;max-width:420px;display:block;margin:6px 0 20px}
+.linkbtn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;margin-right:8px}
+.dangerbtn{background:#fff;color:#9A4B3F;border:1px solid #C9867B;margin:8px 0 0}
+.backlink{display:inline-flex;align-items:center;min-height:44px;color:var(--btn);text-decoration:none;font-size:16px}
+.chip{display:inline-flex;align-items:center;gap:6px}
+
+/* 홈 */
+.hhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;gap:8px}
+.hbrand{display:flex;align-items:center;gap:8px;font-size:22px;font-weight:700;color:var(--btn)}
+.hbrand span{color:var(--text)}
+.hright{display:flex;align-items:center;gap:8px}
+.hdate{font-size:14px;color:#7a7066;white-space:nowrap}
+.iconbtn{display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;color:var(--btn);border:1px solid var(--line);background:#fff}
+.qtext{font-size:17px;font-weight:600;line-height:1.5}
+.qrow{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+.qrow .btn.ghost{margin-right:0}
+.hsec{font-size:17px;margin:4px 0 10px;color:var(--text)}
+.hcards{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.hcard{display:flex;flex-direction:column;gap:2px;padding:14px;border:1px solid var(--line);border-radius:16px;background:#fff;color:var(--text);text-decoration:none;min-height:96px}
+.hcard svg{width:26px;height:26px;color:var(--btn);margin-bottom:4px}
+.hcard b{font-size:16px}
+.hcard span{font-size:13.5px;color:#7a7066}
+.dueCard.inHome{border-color:var(--btn)}
+
+/* 기록 탭 */
+.seg{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);border-radius:22px;overflow:hidden;margin-bottom:16px;background:#fff}
+.seg.two{grid-template-columns:repeat(2,1fr)}
+.seg a{display:flex;align-items:center;justify-content:center;min-height:44px;padding:8px 6px;color:var(--text);text-decoration:none;font-size:15px}
+.seg a.on{background:var(--btn);color:#fff;font-weight:700}
+.subpane{display:none}
+.subpane.on{display:block}
+
+/* 감정 캘린더 */
+.calhead{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.calhead b{font-size:18px}
+.calhead button{min-width:44px;min-height:44px;border:1px solid var(--line);background:#fff;border-radius:22px;color:var(--btn);font-size:18px;cursor:pointer;font-family:inherit}
+.calgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:12px}
+.caldow{text-align:center;font-size:12.5px;color:#7a7066;padding:2px 0}
+.calcell{min-height:54px;border:1px solid transparent;border-radius:10px;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:5px 1px 3px;font-family:inherit;font-size:14px;color:var(--text);cursor:pointer}
+.calcell.blank{background:transparent;cursor:default}
+.calcell.today{border-color:var(--btn)}
+.calcell.sel{background:var(--main);border-color:var(--btn)}
+.calcell .icons{display:flex;gap:2px;margin-top:3px;min-height:14px;flex-wrap:wrap;justify-content:center}
+.mi{display:block;flex:none}
+.dayDetail p .mi,.card p .mi{display:inline-block;vertical-align:-2px;margin-right:2px}
+.dot{width:6px;height:6px;border-radius:50%;background:#C9C0B4;margin-top:4px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 12px;font-size:13px;color:#7a7066;margin-bottom:12px}
+.legend span{display:inline-flex;align-items:center;gap:4px}
+.dayDetail h4,.dist h4{margin:0 0 8px;font-size:16px;color:var(--btn)}
+.dayDetail .it{border-top:1px solid var(--line);padding:8px 0}
+.dayDetail .it:first-of-type{border-top:0}
+.dayDetail p{margin:2px 0}
+.dist .row{display:grid;grid-template-columns:104px 1fr 26px;gap:8px;align-items:center;margin:6px 0;font-size:14.5px}
+.dist .lab{display:flex;align-items:center;gap:6px}
+.dist .track{height:12px;border-radius:8px;background:var(--bg);overflow:hidden}
+.dist .track i{display:block;height:100%;border-radius:8px}
+.dist .num{text-align:right}
+.dist .link{font-size:14px;color:#5d5149;margin:2px 0 6px;word-break:break-word}
+.dist .link b{color:var(--text)}
+
+/* 질문 기록 */
+.qhist .it{border-top:1px solid var(--line);padding:10px 0}
+.qhist .it:first-child{border-top:0}
+.qhist .qd{font-size:13.5px;color:#7a7066}
+.qhist .qq{font-weight:600;margin:2px 0}
+.qhist .qa{white-space:pre-wrap;word-break:break-word}
+.qhist .btn{min-height:44px;margin-top:6px}
+
+/* 고도화 2차(첫 묶음): 가치 · 강점 · 생각 분별 노트 */
+.chipwrap{display:inline-flex;align-items:center;gap:2px}
+.chipx{min-width:44px;min-height:44px;border:0;background:transparent;color:#7a7066;font-size:20px;line-height:1;cursor:pointer;font-family:inherit}
+.addrow{display:flex;gap:8px;align-items:flex-start}
+.addrow input[type=text]{flex:1;margin-bottom:0;min-height:44px}
+.addrow .btn{margin:0;min-width:64px}
+.vcore{border-top:1px solid var(--line);padding-top:10px;margin-top:10px}
+.vcore:first-of-type{border-top:0;margin-top:0;padding-top:0}
+.vcore h4{margin:0 0 6px;font-size:17px;color:var(--btn)}
+.vcore textarea{min-height:76px}
+.hrow{margin:0 0 6px;font-size:15px;line-height:1.5}
+.slink{display:block;color:var(--text);text-decoration:none}
+.slink b{display:block;font-size:17px;margin-bottom:2px}
+.slink span{display:block;font-size:14.5px;color:#5d5149;word-break:break-word}
+.slink .sub2{font-size:13.5px;color:#7a7066;margin-top:2px}
+.nblock{border:1px solid var(--line);border-left-width:5px;border-radius:14px;background:#fff;padding:10px 14px;margin-bottom:10px}
+.nblock h4{margin:0 0 4px;font-size:15px;color:var(--btn)}
+.nblock p{margin:0;white-space:pre-wrap;word-break:break-word}
+.nblock p.empty{color:#7a7066}
+.nb-event{border-left-color:#D8C3A5}
+.nb-facts{border-left-color:#A5AD98}
+.nb-interp{border-left-color:#B8A9C9}
+.nb-emotion{border-left-color:#E9A9A0}
+.nb-alt{border-left-color:#9FB3C0}
+
+@media (max-width:419px){
+  .calgrid{gap:2px}
+}
+.backlink{min-width:44px;padding:0 10px 0 0}
+@media (min-width:768px){
+  .hcards{grid-template-columns:repeat(2,1fr)}
+  .calcell{min-height:64px}
+}
+
+/* 고도화 2차(둘째 묶음): 선택 비교 · 결정 유예함 · 작은 실행 계획 · 오늘 살펴볼 것 */
+.copt{padding:0}
+.cohead{display:flex;align-items:center;gap:10px;width:100%;min-height:56px;padding:10px 16px;border:0;background:transparent;text-align:left;font-family:inherit;font-size:16px;color:var(--text);cursor:pointer}
+.cohead b{color:var(--btn);white-space:nowrap}
+.cohead span{flex:1;min-width:0;color:#5d5149;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cohead i{font-style:normal;font-size:14px;color:#7a7066}
+.cobody{padding:0 16px 14px}
+.improw{margin:8px 0 6px;font-size:15px}
+.cres h4{margin:0 0 6px;font-size:16px;color:var(--btn)}
+.cres p{margin:0 0 8px}
+.cres .empty,.card p.empty,.nblock p.empty{color:#7a7066}
+.imptag{display:inline-block;margin-left:6px;padding:1px 8px;border-radius:10px;background:var(--main);color:var(--text);font-size:13px;font-weight:400}
+.dueSoft{border-color:var(--btn)}
+.todoit{display:block;padding:10px 0;border-top:1px solid var(--line);color:var(--text);text-decoration:none;min-height:44px}
+.todoit:first-of-type{border-top:0}
+.todoit b{display:block;font-size:16px}
+.todoit .sub2{display:block;font-size:13.5px;color:var(--btn)}
+input[type=date]{min-height:44px}
+
+/* 고도화 3차(첫 묶음): 통합 기록 보관함 · 주간·월간 회고 */
+.archbar label{margin-top:0}
+.archbar input[type=text]{margin-bottom:10px;min-height:44px}
+.feedit{position:relative}
+.favbtn{position:absolute;top:0;right:0;z-index:2;min-width:44px;min-height:44px;border:0;background:transparent;font-size:22px;line-height:1;color:var(--btn);cursor:pointer;font-family:inherit}
+.feedit details.rec summary{padding-right:40px}
+.feedit .card.slink{padding-right:48px}
+.typetag{display:inline-block;margin-bottom:2px;padding:1px 8px;border-radius:10px;background:var(--main);color:var(--text);font-size:12.5px}
+.edtag{display:inline-block;padding:0 8px;border-radius:10px;background:var(--main);font-size:12.5px}
+.recform label{margin-top:8px}
+.recform .btn{margin:6px 8px 0 0}
+.pnav{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:4px 0 12px}
+.pnav b{flex:1;text-align:center;font-size:16px}
+.pnav .btn{margin:0;padding:8px 14px}
+.quote{color:#5d5149}
+button.slink{display:block;width:100%;text-align:left;border:0;border-top:1px solid var(--line);background:transparent;padding:10px 0;min-height:44px;font-family:inherit;font-size:inherit;color:var(--text);cursor:pointer}
+a.slink:not(.card){display:block;border-top:1px solid var(--line);padding:10px 0;min-height:44px}
+.card > button.slink:first-of-type,.card > a.slink:not(.card):first-of-type{border-top:0}
+/* 기록 카드의 제목 줄은 한 덩어리 글로 흐르게 한다(긴 고민도 좁은 칸에 갇히지 않게) */
+.rec summary{display:block;padding-top:10px;padding-bottom:10px;line-height:1.5;word-break:break-word}
+.rec summary b{display:inline;margin:0}
+
+/* ---- 고도화 3차 · 둘째 묶음: 타임라인 · 대시보드 · 리포트 ---- */
+.tlentry{border-left:3px solid var(--line);padding:2px 0 6px 12px;margin:0 0 14px}
+.tlentry.tlbase{border-left-color:var(--btn)}
+.tlentry p{margin:0 0 4px;font-size:15px;line-height:1.5;word-break:break-word}
+.tlentry .tlhead{margin-bottom:6px}
+.sent .sub2{font-size:13.5px;color:#7a7066}
+.sent span{min-width:0;word-break:break-word}
+.dstrip{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:4px}
+.dcell{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:40px;border:1px solid var(--line);border-radius:8px;background:#fff;padding:2px 0}
+.dcell.none{background:transparent;border-style:dashed}
+.dcell small{font-size:10.5px;color:#7a7066;line-height:1.2}
+.rpsec{margin:0 0 14px}
+.rpsec h4{margin:0 0 6px;font-size:16px}
+.rpsec .hrow{word-break:break-word}
+.rpdates{display:grid;gap:6px;margin-top:12px}
+.rpdates input{min-height:44px;font-size:16px;font-family:inherit;border:1px solid var(--line);border-radius:10px;padding:6px 10px;background:#fff;color:var(--text);width:100%;box-sizing:border-box}
+.rpbtns{display:grid;gap:8px;margin:0 0 4px}
+.rpbtns .btn{margin:0}
+@media (min-width:480px){.rpbtns{grid-template-columns:1fr 1fr}}
+
+/* ---- 고도화 4차 ---- */
+.sugg{border-top:1px solid var(--line);padding-top:10px;margin-top:8px}
+.sugg:first-of-type{border-top:0;padding-top:0;margin-top:0}
+.sugg p{word-break:break-word}
+.moveSteps{margin:8px 0;padding-left:22px;font-size:15px;line-height:1.6}
+.moveSteps li{margin-bottom:6px}
+#sS .card .btn{margin-top:8px}
